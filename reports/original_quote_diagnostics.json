@@ -1,0 +1,945 @@
+{
+  "kind": "aggregate_valuation_sensitivities",
+  "reports": [
+    {
+      "label": "primary supplemental valuation",
+      "max_age_seconds": 60,
+      "convention": "Fixed original cashflows/admissions; uniform indicative quote marks only",
+      "standing_quote_assumption": false,
+      "no_guarantee_of_executable_or_uninterrupted_feed": true,
+      "position_day_coverage": {
+        "C_U0.05:STALE_LATEST_QUOTE_STATE": 16,
+        "AVAILABLE_INDICATIVE_PARITY_MARK": 222,
+        "P_K:STALE_LATEST_QUOTE_STATE;C_U0.05:STALE_LATEST_QUOTE_STATE": 3,
+        "P_K:STALE_LATEST_QUOTE_STATE": 8,
+        "C_K:STALE_LATEST_QUOTE_STATE;C_U0.05:STALE_LATEST_QUOTE_STATE": 4,
+        "C_K:STALE_LATEST_QUOTE_STATE;P_K:STALE_LATEST_QUOTE_STATE": 2,
+        "C_K:STALE_LATEST_QUOTE_STATE": 7,
+        "C_K:STALE_LATEST_QUOTE_STATE;P_K:STALE_LATEST_QUOTE_STATE;C_U0.05:STALE_LATEST_QUOTE_STATE": 2
+      },
+      "leg_day_statuses": {
+        "VALID_INDICATIVE_QUOTE": 737,
+        "STALE_LATEST_QUOTE_STATE": 55
+      },
+      "nav_gaps": 37,
+      "calendar": {
+        "sessions": 502,
+        "calendar_rows_absent": 0,
+        "nav_gaps": 37,
+        "negative_nav_count": 0,
+        "complete_calendar_nav": false,
+        "complete_calendar_returns": false,
+        "annualized_return": -0.006058582499610998,
+        "annualized_volatility": null,
+        "sharpe_rf0": null,
+        "daily_return_skew_unbiased": null,
+        "maximum_drawdown": null,
+        "worst_month_return": null,
+        "worst_month": null,
+        "total_net_return": -0.012032809832168812,
+        "status": "INCOMPLETE_CALENDAR_PATH",
+        "conventions": "252-session endpoint CAGR; ddof=1 volatility; rf=0 Sharpe; adjusted Fisher-Pearson daily skew; all idle-cash days retained",
+        "monthly": [
+          {
+            "month": "2024-01",
+            "first_in_window_session": "2024-01-02",
+            "last_in_window_session": "2024-01-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-02",
+            "first_in_window_session": "2024-02-01",
+            "last_in_window_session": "2024-02-29",
+            "sessions": 20,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2024-03",
+            "first_in_window_session": "2024-03-01",
+            "last_in_window_session": "2024-03-28",
+            "sessions": 20,
+            "return": 6.106104628833542e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-04",
+            "first_in_window_session": "2024-04-01",
+            "last_in_window_session": "2024-04-30",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-05",
+            "first_in_window_session": "2024-05-01",
+            "last_in_window_session": "2024-05-31",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-06",
+            "first_in_window_session": "2024-06-03",
+            "last_in_window_session": "2024-06-28",
+            "sessions": 19,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-07",
+            "first_in_window_session": "2024-07-01",
+            "last_in_window_session": "2024-07-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2024-08",
+            "first_in_window_session": "2024-08-01",
+            "last_in_window_session": "2024-08-30",
+            "sessions": 22,
+            "return": -0.00044477405797460623,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-09",
+            "first_in_window_session": "2024-09-03",
+            "last_in_window_session": "2024-09-30",
+            "sessions": 20,
+            "return": -9.912107219645083e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-10",
+            "first_in_window_session": "2024-10-01",
+            "last_in_window_session": "2024-10-31",
+            "sessions": 23,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-11",
+            "first_in_window_session": "2024-11-01",
+            "last_in_window_session": "2024-11-29",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-12",
+            "first_in_window_session": "2024-12-02",
+            "last_in_window_session": "2024-12-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-01",
+            "first_in_window_session": "2025-01-02",
+            "last_in_window_session": "2025-01-31",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-02",
+            "first_in_window_session": "2025-02-03",
+            "last_in_window_session": "2025-02-28",
+            "sessions": 19,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-03",
+            "first_in_window_session": "2025-03-03",
+            "last_in_window_session": "2025-03-31",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-04",
+            "first_in_window_session": "2025-04-01",
+            "last_in_window_session": "2025-04-30",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-05",
+            "first_in_window_session": "2025-05-01",
+            "last_in_window_session": "2025-05-30",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-06",
+            "first_in_window_session": "2025-06-02",
+            "last_in_window_session": "2025-06-30",
+            "sessions": 20,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-07",
+            "first_in_window_session": "2025-07-01",
+            "last_in_window_session": "2025-07-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-08",
+            "first_in_window_session": "2025-08-01",
+            "last_in_window_session": "2025-08-29",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-09",
+            "first_in_window_session": "2025-09-02",
+            "last_in_window_session": "2025-09-30",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-10",
+            "first_in_window_session": "2025-10-01",
+            "last_in_window_session": "2025-10-31",
+            "sessions": 23,
+            "return": -0.0007067698670478739,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-11",
+            "first_in_window_session": "2025-11-03",
+            "last_in_window_session": "2025-11-28",
+            "sessions": 19,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-12",
+            "first_in_window_session": "2025-12-01",
+            "last_in_window_session": "2025-12-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          }
+        ],
+        "turnover": {
+          "traded_stock_gross": {
+            "gross_usd": 726344.8389882424,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 0.7263448389882424,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          },
+          "traded_option_premium_gross": {
+            "gross_usd": 139484.0,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 0.139484,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          },
+          "traded_option_underlying_gross": {
+            "gross_usd": 2179034.5169647275,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 2.1790345169647276,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          }
+        }
+      },
+      "factor": {
+        "sessions": 501,
+        "complete_rows": 440,
+        "hac_lags": 21,
+        "status": "UNAVAILABLE_INCOMPLETE_PATH",
+        "coefficients": [],
+        "correlation": [],
+        "r_squared": null,
+        "nonzero_return_sessions": 129,
+        "inference": "Descriptive OLS with asymptotic HAC intervals; few independent events and nonlinear option exposure prevent a stable-alpha claim.",
+        "scope": "Jan 3 2024-Dec 31 2025; split-adjusted ETF price-return proxies, RF=0",
+        "not_causal_alpha": "ETF proxies exclude dividends and are not pure style factors; nonlinear option risk and sparse positions remain"
+      },
+      "quote_conditions_present_count": 0,
+      "valid_leg_quote_age_median_seconds": 1.938446318,
+      "all_timestamp_known_latest_state_age_seconds": {
+        "count": 792,
+        "min": 0.000359429,
+        "median": 2.3562830495,
+        "p95": 88.23313632614993,
+        "p99": 297.9947984317001,
+        "max": 1646.457869056,
+        "above_60_seconds": 55,
+        "above_300_seconds": 7
+      },
+      "all_three_leg_latest_update_span_seconds": {
+        "count": 264,
+        "min": 0.000966679,
+        "median": 6.227322898500001,
+        "p95": 209.67485216959992,
+        "p99": 301.5747246742,
+        "max": 1645.08688256,
+        "above_60_seconds": 41,
+        "above_300_seconds": 3
+      },
+      "roundtrip_three_leg_halfspread_aggregate_usd": 5350.0,
+      "endpoint_position_snapshots_available": 21,
+      "endpoint_position_snapshots_expected": 24,
+      "observed_scope_boundary_position_snapshots_expected": 24,
+      "open_at_window_end_count": 0,
+      "open_scope_end_is_realized_exit": false,
+      "original_cashflows_unchanged": true,
+      "same_final_cash_NAV": true
+    },
+    {
+      "label": "prespecified age sensitivity",
+      "max_age_seconds": 300,
+      "convention": "Fixed original cashflows/admissions; uniform indicative quote marks only",
+      "standing_quote_assumption": false,
+      "no_guarantee_of_executable_or_uninterrupted_feed": true,
+      "position_day_coverage": {
+        "ASYNCHRONOUS_THREE_LEG_STATE": 37,
+        "AVAILABLE_INDICATIVE_PARITY_MARK": 223,
+        "C_K:STALE_LATEST_QUOTE_STATE;P_K:STALE_LATEST_QUOTE_STATE": 1,
+        "P_K:STALE_LATEST_QUOTE_STATE": 1,
+        "P_K:STALE_LATEST_QUOTE_STATE;C_U0.05:STALE_LATEST_QUOTE_STATE": 2
+      },
+      "leg_day_statuses": {
+        "VALID_INDICATIVE_QUOTE": 785,
+        "STALE_LATEST_QUOTE_STATE": 7
+      },
+      "nav_gaps": 36,
+      "calendar": {
+        "sessions": 502,
+        "calendar_rows_absent": 0,
+        "nav_gaps": 36,
+        "negative_nav_count": 0,
+        "complete_calendar_nav": false,
+        "complete_calendar_returns": false,
+        "annualized_return": -0.006058582499610998,
+        "annualized_volatility": null,
+        "sharpe_rf0": null,
+        "daily_return_skew_unbiased": null,
+        "maximum_drawdown": null,
+        "worst_month_return": null,
+        "worst_month": null,
+        "total_net_return": -0.012032809832168812,
+        "status": "INCOMPLETE_CALENDAR_PATH",
+        "conventions": "252-session endpoint CAGR; ddof=1 volatility; rf=0 Sharpe; adjusted Fisher-Pearson daily skew; all idle-cash days retained",
+        "monthly": [
+          {
+            "month": "2024-01",
+            "first_in_window_session": "2024-01-02",
+            "last_in_window_session": "2024-01-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-02",
+            "first_in_window_session": "2024-02-01",
+            "last_in_window_session": "2024-02-29",
+            "sessions": 20,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2024-03",
+            "first_in_window_session": "2024-03-01",
+            "last_in_window_session": "2024-03-28",
+            "sessions": 20,
+            "return": 6.106104628833542e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-04",
+            "first_in_window_session": "2024-04-01",
+            "last_in_window_session": "2024-04-30",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-05",
+            "first_in_window_session": "2024-05-01",
+            "last_in_window_session": "2024-05-31",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-06",
+            "first_in_window_session": "2024-06-03",
+            "last_in_window_session": "2024-06-28",
+            "sessions": 19,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-07",
+            "first_in_window_session": "2024-07-01",
+            "last_in_window_session": "2024-07-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2024-08",
+            "first_in_window_session": "2024-08-01",
+            "last_in_window_session": "2024-08-30",
+            "sessions": 22,
+            "return": -0.00044477405797460623,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-09",
+            "first_in_window_session": "2024-09-03",
+            "last_in_window_session": "2024-09-30",
+            "sessions": 20,
+            "return": -9.912107219645083e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-10",
+            "first_in_window_session": "2024-10-01",
+            "last_in_window_session": "2024-10-31",
+            "sessions": 23,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-11",
+            "first_in_window_session": "2024-11-01",
+            "last_in_window_session": "2024-11-29",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-12",
+            "first_in_window_session": "2024-12-02",
+            "last_in_window_session": "2024-12-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-01",
+            "first_in_window_session": "2025-01-02",
+            "last_in_window_session": "2025-01-31",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-02",
+            "first_in_window_session": "2025-02-03",
+            "last_in_window_session": "2025-02-28",
+            "sessions": 19,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-03",
+            "first_in_window_session": "2025-03-03",
+            "last_in_window_session": "2025-03-31",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-04",
+            "first_in_window_session": "2025-04-01",
+            "last_in_window_session": "2025-04-30",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-05",
+            "first_in_window_session": "2025-05-01",
+            "last_in_window_session": "2025-05-30",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-06",
+            "first_in_window_session": "2025-06-02",
+            "last_in_window_session": "2025-06-30",
+            "sessions": 20,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-07",
+            "first_in_window_session": "2025-07-01",
+            "last_in_window_session": "2025-07-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-08",
+            "first_in_window_session": "2025-08-01",
+            "last_in_window_session": "2025-08-29",
+            "sessions": 21,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-09",
+            "first_in_window_session": "2025-09-02",
+            "last_in_window_session": "2025-09-30",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-10",
+            "first_in_window_session": "2025-10-01",
+            "last_in_window_session": "2025-10-31",
+            "sessions": 23,
+            "return": -0.0007067698670478739,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-11",
+            "first_in_window_session": "2025-11-03",
+            "last_in_window_session": "2025-11-28",
+            "sessions": 19,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          },
+          {
+            "month": "2025-12",
+            "first_in_window_session": "2025-12-01",
+            "last_in_window_session": "2025-12-31",
+            "sessions": 22,
+            "return": null,
+            "status": "UNAVAILABLE_NAV_OR_BEGINNING_GAP"
+          }
+        ],
+        "turnover": {
+          "traded_stock_gross": {
+            "gross_usd": 726344.8389882424,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 0.7263448389882424,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          },
+          "traded_option_premium_gross": {
+            "gross_usd": 139484.0,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 0.139484,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          },
+          "traded_option_underlying_gross": {
+            "gross_usd": 2179034.5169647275,
+            "two_sided_over_mean_nav": null,
+            "over_initial_nav_diagnostic": 2.1790345169647276,
+            "status": "UNAVAILABLE_COMPLETE_NAV_OR_CASHFLOWS"
+          }
+        }
+      },
+      "factor": {
+        "sessions": 501,
+        "complete_rows": 442,
+        "hac_lags": 21,
+        "status": "UNAVAILABLE_INCOMPLETE_PATH",
+        "coefficients": [],
+        "correlation": [],
+        "r_squared": null,
+        "nonzero_return_sessions": 131,
+        "inference": "Descriptive OLS with asymptotic HAC intervals; few independent events and nonlinear option exposure prevent a stable-alpha claim.",
+        "scope": "Jan 3 2024-Dec 31 2025; split-adjusted ETF price-return proxies, RF=0",
+        "not_causal_alpha": "ETF proxies exclude dividends and are not pure style factors; nonlinear option risk and sparse positions remain"
+      },
+      "quote_conditions_present_count": 0,
+      "valid_leg_quote_age_median_seconds": 2.32295424,
+      "all_timestamp_known_latest_state_age_seconds": {
+        "count": 792,
+        "min": 0.000359429,
+        "median": 2.3562830495,
+        "p95": 88.23313632614993,
+        "p99": 297.9947984317001,
+        "max": 1646.457869056,
+        "above_60_seconds": 55,
+        "above_300_seconds": 7
+      },
+      "all_three_leg_latest_update_span_seconds": {
+        "count": 264,
+        "min": 0.000966679,
+        "median": 6.227322898500001,
+        "p95": 209.67485216959992,
+        "p99": 301.5747246742,
+        "max": 1645.08688256,
+        "above_60_seconds": 41,
+        "above_300_seconds": 3
+      },
+      "roundtrip_three_leg_halfspread_aggregate_usd": 5350.0,
+      "endpoint_position_snapshots_available": 21,
+      "endpoint_position_snapshots_expected": 24,
+      "observed_scope_boundary_position_snapshots_expected": 24,
+      "open_at_window_end_count": 0,
+      "open_scope_end_is_realized_exit": false,
+      "original_cashflows_unchanged": true,
+      "same_final_cash_NAV": true
+    },
+    {
+      "label": "post-coverage same-session standing-NBBO assumption",
+      "max_age_seconds": null,
+      "convention": "Fixed original cashflows/admissions; uniform indicative quote marks only",
+      "standing_quote_assumption": true,
+      "no_guarantee_of_executable_or_uninterrupted_feed": true,
+      "position_day_coverage": {
+        "AVAILABLE_INDICATIVE_PARITY_MARK": 264
+      },
+      "leg_day_statuses": {
+        "VALID_INDICATIVE_QUOTE": 792
+      },
+      "nav_gaps": 0,
+      "calendar": {
+        "sessions": 502,
+        "calendar_rows_absent": 0,
+        "nav_gaps": 0,
+        "negative_nav_count": 0,
+        "complete_calendar_nav": true,
+        "complete_calendar_returns": true,
+        "annualized_return": -0.006058582499610998,
+        "annualized_volatility": 0.007663254378886966,
+        "sharpe_rf0": -0.7891684708086207,
+        "daily_return_skew_unbiased": -3.518807805820847,
+        "maximum_drawdown": 0.016968925800017742,
+        "worst_month_return": -0.006526253335219834,
+        "worst_month": "2025-04",
+        "total_net_return": -0.012032809832168812,
+        "status": "COMPLETE",
+        "conventions": "252-session endpoint CAGR; ddof=1 volatility; rf=0 Sharpe; adjusted Fisher-Pearson daily skew; all idle-cash days retained",
+        "monthly": [
+          {
+            "month": "2024-01",
+            "first_in_window_session": "2024-01-02",
+            "last_in_window_session": "2024-01-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-02",
+            "first_in_window_session": "2024-02-01",
+            "last_in_window_session": "2024-02-29",
+            "sessions": 20,
+            "return": -6.73552861197857e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-03",
+            "first_in_window_session": "2024-03-01",
+            "last_in_window_session": "2024-03-28",
+            "sessions": 20,
+            "return": 6.106104628833542e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-04",
+            "first_in_window_session": "2024-04-01",
+            "last_in_window_session": "2024-04-30",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-05",
+            "first_in_window_session": "2024-05-01",
+            "last_in_window_session": "2024-05-31",
+            "sessions": 22,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-06",
+            "first_in_window_session": "2024-06-03",
+            "last_in_window_session": "2024-06-28",
+            "sessions": 19,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-07",
+            "first_in_window_session": "2024-07-01",
+            "last_in_window_session": "2024-07-31",
+            "sessions": 22,
+            "return": 0.0003999741416182978,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-08",
+            "first_in_window_session": "2024-08-01",
+            "last_in_window_session": "2024-08-30",
+            "sessions": 22,
+            "return": -0.00044477405797460623,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-09",
+            "first_in_window_session": "2024-09-03",
+            "last_in_window_session": "2024-09-30",
+            "sessions": 20,
+            "return": -9.912107219645083e-05,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-10",
+            "first_in_window_session": "2024-10-01",
+            "last_in_window_session": "2024-10-31",
+            "sessions": 23,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-11",
+            "first_in_window_session": "2024-11-01",
+            "last_in_window_session": "2024-11-29",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2024-12",
+            "first_in_window_session": "2024-12-02",
+            "last_in_window_session": "2024-12-31",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-01",
+            "first_in_window_session": "2025-01-02",
+            "last_in_window_session": "2025-01-31",
+            "sessions": 20,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-02",
+            "first_in_window_session": "2025-02-03",
+            "last_in_window_session": "2025-02-28",
+            "sessions": 19,
+            "return": -0.0012380462389406377,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-03",
+            "first_in_window_session": "2025-03-03",
+            "last_in_window_session": "2025-03-31",
+            "sessions": 21,
+            "return": -0.0008823836262732421,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-04",
+            "first_in_window_session": "2025-04-01",
+            "last_in_window_session": "2025-04-30",
+            "sessions": 21,
+            "return": -0.006526253335219834,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-05",
+            "first_in_window_session": "2025-05-01",
+            "last_in_window_session": "2025-05-30",
+            "sessions": 21,
+            "return": -0.00300012318526921,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-06",
+            "first_in_window_session": "2025-06-02",
+            "last_in_window_session": "2025-06-30",
+            "sessions": 20,
+            "return": -0.00027052784588288414,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-07",
+            "first_in_window_session": "2025-07-01",
+            "last_in_window_session": "2025-07-31",
+            "sessions": 22,
+            "return": -0.0004100005096713266,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-08",
+            "first_in_window_session": "2025-08-01",
+            "last_in_window_session": "2025-08-29",
+            "sessions": 21,
+            "return": -0.00010397533356765187,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-09",
+            "first_in_window_session": "2025-09-02",
+            "last_in_window_session": "2025-09-30",
+            "sessions": 21,
+            "return": 0.0,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-10",
+            "first_in_window_session": "2025-10-01",
+            "last_in_window_session": "2025-10-31",
+            "sessions": 23,
+            "return": -0.0007067698670478739,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-11",
+            "first_in_window_session": "2025-11-03",
+            "last_in_window_session": "2025-11-28",
+            "sessions": 19,
+            "return": 0.001376662509759985,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          },
+          {
+            "month": "2025-12",
+            "first_in_window_session": "2025-12-01",
+            "last_in_window_session": "2025-12-31",
+            "sessions": 22,
+            "return": -0.00016557806831629662,
+            "status": "COMPLETE_IN_WINDOW_MONTH"
+          }
+        ],
+        "turnover": {
+          "traded_stock_gross": {
+            "gross_usd": 726344.8389882424,
+            "two_sided_over_mean_nav": 0.7295645600448396,
+            "over_initial_nav_diagnostic": 0.7263448389882424,
+            "status": "COMPLETE"
+          },
+          "traded_option_premium_gross": {
+            "gross_usd": 139484.0,
+            "two_sided_over_mean_nav": 0.14010230076810895,
+            "over_initial_nav_diagnostic": 0.139484,
+            "status": "COMPLETE"
+          },
+          "traded_option_underlying_gross": {
+            "gross_usd": 2179034.5169647275,
+            "two_sided_over_mean_nav": 2.188693680134519,
+            "over_initial_nav_diagnostic": 2.1790345169647276,
+            "status": "COMPLETE"
+          }
+        }
+      },
+      "factor": {
+        "sessions": 501,
+        "complete_rows": 501,
+        "hac_lags": 21,
+        "status": "DESCRIPTIVE_COMPLETE_CALENDAR",
+        "coefficients": [
+          {
+            "term": "daily_intercept",
+            "estimate": -4.179957009094898e-05,
+            "hac_standard_error": 2.2290506488158538e-05,
+            "asymptotic_95_low": -8.54881600048949e-05,
+            "asymptotic_95_high": 1.8890198229969512e-06
+          },
+          {
+            "term": "market_SPY",
+            "estimate": 0.02410817707142746,
+            "hac_standard_error": 0.008370864369563077,
+            "asymptotic_95_low": 0.007701584387614695,
+            "asymptotic_95_high": 0.040514769755240224
+          },
+          {
+            "term": "value_IWD_minus_IWF",
+            "estimate": 0.005296146288109595,
+            "hac_standard_error": 0.004292566401942834,
+            "asymptotic_95_low": -0.003117129260944814,
+            "asymptotic_95_high": 0.013709421837164004
+          },
+          {
+            "term": "momentum_MTUM_minus_SPY",
+            "estimate": 0.005269527898971529,
+            "hac_standard_error": 0.006656730310316613,
+            "asymptotic_95_low": -0.007777423764044812,
+            "asymptotic_95_high": 0.01831647956198787
+          }
+        ],
+        "correlation": [
+          {
+            "variable": "portfolio_excess",
+            "portfolio_excess": 1.0,
+            "market_SPY": 0.4780734334314127,
+            "value_IWD_minus_IWF": -0.20706578103826184,
+            "momentum_MTUM_minus_SPY": 0.172961154978834
+          },
+          {
+            "variable": "market_SPY",
+            "portfolio_excess": 0.4780734334314127,
+            "market_SPY": 1.0,
+            "value_IWD_minus_IWF": -0.5470008310804347,
+            "momentum_MTUM_minus_SPY": 0.2969891972353291
+          },
+          {
+            "variable": "value_IWD_minus_IWF",
+            "portfolio_excess": -0.20706578103826184,
+            "market_SPY": -0.5470008310804347,
+            "value_IWD_minus_IWF": 1.0,
+            "momentum_MTUM_minus_SPY": -0.4273812325854525
+          },
+          {
+            "variable": "momentum_MTUM_minus_SPY",
+            "portfolio_excess": 0.172961154978834,
+            "market_SPY": 0.2969891972353291,
+            "value_IWD_minus_IWF": -0.4273812325854525,
+            "momentum_MTUM_minus_SPY": 1.0
+          }
+        ],
+        "r_squared": 0.2360587268319525,
+        "nonzero_return_sessions": 190,
+        "inference": "Descriptive OLS with asymptotic HAC intervals; few independent events and nonlinear option exposure prevent a stable-alpha claim.",
+        "annualized_intercept_arithmetic_diagnostic": -0.010533491662919142,
+        "condition_number": 199.87677465990657,
+        "scope": "Jan 3 2024-Dec 31 2025; split-adjusted ETF price-return proxies, RF=0",
+        "not_causal_alpha": "ETF proxies exclude dividends and are not pure style factors; nonlinear option risk and sparse positions remain"
+      },
+      "quote_conditions_present_count": 0,
+      "valid_leg_quote_age_median_seconds": 2.3562830495,
+      "all_timestamp_known_latest_state_age_seconds": {
+        "count": 792,
+        "min": 0.000359429,
+        "median": 2.3562830495,
+        "p95": 88.23313632614993,
+        "p99": 297.9947984317001,
+        "max": 1646.457869056,
+        "above_60_seconds": 55,
+        "above_300_seconds": 7
+      },
+      "all_three_leg_latest_update_span_seconds": {
+        "count": 264,
+        "min": 0.000966679,
+        "median": 6.227322898500001,
+        "p95": 209.67485216959992,
+        "p99": 301.5747246742,
+        "max": 1645.08688256,
+        "above_60_seconds": 41,
+        "above_300_seconds": 3
+      },
+      "roundtrip_three_leg_halfspread_aggregate_usd": 5799.999999999999,
+      "endpoint_position_snapshots_available": 24,
+      "endpoint_position_snapshots_expected": 24,
+      "observed_scope_boundary_position_snapshots_expected": 24,
+      "open_at_window_end_count": 0,
+      "open_scope_end_is_realized_exit": false,
+      "original_cashflows_unchanged": true,
+      "same_final_cash_NAV": true
+    }
+  ]
+}

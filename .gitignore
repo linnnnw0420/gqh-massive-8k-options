@@ -8,3 +8,8 @@
 .ipynb_checkpoints/
 __pycache__/
 *.py[cod]
+
+# Private research inputs and generated execution state
+*.private.*
+.research-private/
+research_runs/

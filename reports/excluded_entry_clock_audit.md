@@ -1,0 +1,31 @@
+# Nine excluded agreements: independent entry-clock audit
+
+This is an objective post-IS bug audit. No original label, hypothesis, historical review or first-run result is overwritten. No prices, returns, OOS or sealed data were used.
+
+The frozen proposal explicitly says a premarket disclosure may enter at that same session close. The current WSL hypothesis and notebook agree. Only three pure clock definitions were executed with an independent XNYS calendar restricted to 2024–25; no notebook cell or trading function ran. Acceptance times come from the prior saved SEC audit and were not freshly refetched.
+
+**Result: exactly two cited exclusion reasons are after the correct entry—Uber/Trendyol and Netflix/WBD.** The other seven cited reasons are already in the same disclosure or public before their correct entry. This is a chronology conclusion, not proof of exhaustive news coverage.
+
+| Group | Saved acceptance ET | Correct full-session close ET | Old reason/public date | Clock-only effect |
+|---|---|---|---|---|
+| BLK_GIP | 2024-01-12 06:55:43 | 2024-01-12 16:00:00 | [2024-01-12](https://www.sec.gov/Archives/edgar/data/1364742/000095017024004107/blk-20240112.htm): Independent quarterly/full-year earnings in the same 8-K. | KEEP_RECORDED_EXCLUSION |
+| UBER_FOODPANDA | 2024-05-14 06:00:31 | 2024-05-14 16:00:00 | [2024-05-13](https://investor.uber.com/news-events/news/press-release-details/2024/Uber-Eats-to-Acquire-Delivery-Heros-foodpanda-Delivery-Business-in-Taiwan/default.aspx): Separate investment in newly issued Delivery Hero shares disclosed alongside the operating-business agreement. | KEEP_RECORDED_EXCLUSION |
+| COP_MARATHON | 2024-05-29 07:16:35 | 2024-05-29 16:00:00 | [2024-05-29](https://www.conocophillips.com/news-media/story/conocophillips-to-acquire-marathon-oil-corporation-in-all-stock-transaction-provides-shareholder-distribution-update/): Acquisition announcement also announces an ordinary dividend increase explicitly independent of the transaction. | KEEP_RECORDED_EXCLUSION |
+| VZ_FRONTIER | 2024-09-05 06:56:07 | 2024-09-05 16:00:00 | [2024-09-05](https://www.verizon.com/about/news/verizon-to-acquire-frontier): Acquisition announcement reaffirms standalone full-year guidance; this is a reaffirmation, not a newly verified numerical revision. | KEEP_RECORDED_EXCLUSION_WITH_POLICY_NOTE |
+| ISRG_DIST | 2025-01-23 16:03:01 | 2025-01-24 16:00:00 | [2025-01-23](https://www.sec.gov/Archives/edgar/data/1035267/000103526725000008/isrg-20250121.htm): January 23 tagged 8-K includes independent quarterly earnings and references the earlier January 21 acquisition announcement. | KEEP_RECORDED_EXCLUSION |
+| UBER_TRENDYOL | 2025-05-06 08:21:08 | 2025-05-06 16:00:00 | [2025-05-07](https://investor.uber.com/news-events/news/press-release-details/2025/Uber-Announces-Results-for-First-Quarter-2025/default.aspx): Old exclusion used May 7 quarterly earnings, assuming entry was May 7 rather than May 6. | REMOVE_INVALID_CLOCK_EXCLUSION_REASON |
+| T_LUMEN | 2025-05-21 16:05:20 | 2025-05-22 16:00:00 | [2025-05-21](https://about.att.com/story/2025/lumen-mass-markets-fiber-business.html): May 21 announcement reiterates standalone guidance and an already announced repurchase plan; no newly verified authorization. | KEEP_RECORDED_EXCLUSION_WITH_POLICY_NOTE |
+| LOW_FBM | 2025-08-20 06:18:36 | 2025-08-20 16:00:00 | [2025-08-20](https://corporate.lowes.com/newsroom/press-releases/lowes-reports-second-quarter-2025-sales-and-earnings-results-08-20-25): Independent earnings were disclosed on the acquisition announcement morning, with an earnings call at 09:00 ET. | KEEP_RECORDED_EXCLUSION |
+| NFLX_WBD | 2025-12-05 07:31:07 | 2025-12-05 16:00:00 | [2025-12-08](https://ir.wbd.com/news-and-events/financial-news/financial-news-details/2025/Warner-Bros--Discovery-Confirms-Receipt-of-Paramount-Skydance-Unsolicited-Tender-Offer/default.aspx): Old exclusion used the December 8 competing tender offer, assuming entry was December 8 rather than December 5. | REMOVE_INVALID_CLOCK_EXCLUSION_REASON |
+
+Uber’s May 7 earnings and the December 8 Paramount bid remain holding-period risks for May 6/December 5 entries. They cannot retroactively remove those initial signals. The two cases already satisfy the recorded buyer/control/definitive-agreement structural review, but removing an invalid reason alone does not prove there were no other pre-entry independent disclosures. Record a common review scope before changing labels.
+
+ISRG remains excluded: the required tagged 8-K was accepted after the January 23 close and contains earnings, so its entry is January 24. The earlier January 21 IR announcement does not move the tagged-text entry backward. AT&T’s after-close acceptance maps to May 22; its May 21 reiterated guidance/repurchases are already known.
+
+VZ/T carry a separate policy wording issue: the records describe reaffirmations as not new, yet explicitly exclude them under the approved same-disclosure rule. Keep these decisions in a clock-only repair; changing that policy requires a separately described version. Do not relabel a reaffirmation as a new number/authorization.
+
+If common pre-entry review finds no other exclusion for the two correction candidates, 16 eligible/9 excluded would become 18/7. This arithmetic is conditional, not a frozen or executed result. Preserve the original first-IS result; any corrected IS run must be identified as post-IS bug repair, disclose both versions and keep the hypothesis and economic rules unchanged.
+
+Pre-results timing does not cure future-information selection: using a later announcement to exclude an earlier entry is lookahead even if nobody looked at the event returns. This audit reviewed every original excluded control-qualified group rather than choosing cases by outcome. Broader historical-label and static-universe limitations remain.
+
+The JSON manifest stores exact accessions, direct sources, original-document/core-text hashes, clock checks, facts, proposed reason effects and remaining gaps. Exact IR seconds/global negative-news coverage remain incomplete; same-filing evidence supports most retained exclusions. The LOW earnings 8-K time 06:03 is a prior retained audit fact; its current IR release independently identifies a 09:00 ET same-day earnings call before the 16:00 entry.

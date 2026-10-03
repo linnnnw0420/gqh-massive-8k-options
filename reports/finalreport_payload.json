@@ -1,0 +1,419 @@
+{
+  "schema": "gqh_quant_note_v1",
+  "generated_utc": "2026-10-03T21:02:14.179582+00:00",
+  "hypothesis_commit": "63664eb",
+  "oos_status": "NOT_RUN",
+  "unseen_classifier_status": "NOT_READY",
+  "studies": {
+    "original": {
+      "status": "COMPLETE_IS_AGGREGATES",
+      "eligible_disclosures": 16,
+      "n_event": 13,
+      "n_ordinary": 88,
+      "theta": 0.0193229763,
+      "iid_interval": [
+        0.00675494,
+        0.0318855371
+      ],
+      "issuer_range": [
+        0.009415427724659593,
+        0.030793956939042553
+      ],
+      "date_range": [
+        -0.00718394126,
+        0.022665626899592943
+      ],
+      "variants": 972,
+      "original_nav_gaps": 12,
+      "horizons": [
+        {
+          "horizon": "1",
+          "event_cc_mean": -0.0193622021,
+          "ordinary_cc_mean": -0.0178140533,
+          "n_event": 11,
+          "n_ordinary": 101,
+          "cc_difference": -0.0015481488,
+          "cc_iid_interval": [
+            -0.008214124,
+            0.0053730865
+          ],
+          "theta": -0.0025220887,
+          "theta_iid_interval": [
+            -0.0070424467,
+            0.0020599677
+          ]
+        },
+        {
+          "horizon": "2",
+          "event_cc_mean": -0.0185684687,
+          "ordinary_cc_mean": -0.017667312,
+          "n_event": 12,
+          "n_ordinary": 99,
+          "cc_difference": -0.0009011567,
+          "cc_iid_interval": [
+            -0.0096962859,
+            0.009479629
+          ],
+          "theta": -0.0002353783,
+          "theta_iid_interval": [
+            -0.0076925426,
+            0.0071932405
+          ]
+        },
+        {
+          "horizon": "3",
+          "event_cc_mean": -0.0219993092,
+          "ordinary_cc_mean": -0.018177156,
+          "n_event": 13,
+          "n_ordinary": 100,
+          "cc_difference": -0.0038221533,
+          "cc_iid_interval": [
+            -0.012854626,
+            0.0054157214
+          ],
+          "theta": 0.0056119834,
+          "theta_iid_interval": [
+            -0.0006615816,
+            0.0119156305
+          ]
+        },
+        {
+          "horizon": "5",
+          "event_cc_mean": -0.0191873749,
+          "ordinary_cc_mean": -0.0156198682,
+          "n_event": 13,
+          "n_ordinary": 99,
+          "cc_difference": -0.0035675067,
+          "cc_iid_interval": [
+            -0.0157523302,
+            0.0099597171
+          ],
+          "theta": 0.0054444387,
+          "theta_iid_interval": [
+            -0.0030332345,
+            0.013829374
+          ]
+        },
+        {
+          "horizon": "10",
+          "event_cc_mean": -0.0272954776,
+          "ordinary_cc_mean": -0.0141948802,
+          "n_event": 13,
+          "n_ordinary": 98,
+          "cc_difference": -0.0131005975,
+          "cc_iid_interval": [
+            -0.0303440615,
+            0.0037051832
+          ],
+          "theta": 0.0158592039,
+          "theta_iid_interval": [
+            0.0045282923,
+            0.0275785823
+          ]
+        },
+        {
+          "horizon": "21",
+          "event_cc_mean": -0.0221569398,
+          "ordinary_cc_mean": -0.0062820706,
+          "n_event": 13,
+          "n_ordinary": 88,
+          "cc_difference": -0.0158748692,
+          "cc_iid_interval": [
+            -0.0338785209,
+            0.0021578209
+          ],
+          "theta": 0.0193229763,
+          "theta_iid_interval": [
+            0.00675494,
+            0.0318855371
+          ]
+        },
+        {
+          "horizon": "42",
+          "event_cc_mean": 0.0179261468,
+          "ordinary_cc_mean": 0.0119193279,
+          "n_event": 9,
+          "n_ordinary": 79,
+          "cc_difference": 0.0060068189,
+          "cc_iid_interval": [
+            -0.0229979059,
+            0.0405266064
+          ],
+          "theta": 0.0216631351,
+          "theta_iid_interval": [
+            -0.0123768772,
+            0.0498413821
+          ]
+        },
+        {
+          "horizon": "63",
+          "event_cc_mean": -0.0367037605,
+          "ordinary_cc_mean": 0.0122023695,
+          "n_event": 9,
+          "n_ordinary": 73,
+          "cc_difference": -0.04890613,
+          "cc_iid_interval": [
+            -0.1404258863,
+            0.0335063219
+          ],
+          "theta": 0.0500767555,
+          "theta_iid_interval": [
+            -0.0036612379,
+            0.0947452635
+          ]
+        },
+        {
+          "horizon": "expiry",
+          "event_cc_mean": 0.0043573195,
+          "ordinary_cc_mean": 0.0256921382,
+          "n_event": 8,
+          "n_ordinary": 68,
+          "cc_difference": -0.0213348187,
+          "cc_iid_interval": [
+            -0.100535722,
+            0.0520662094
+          ],
+          "theta": 0.0659712018,
+          "theta_iid_interval": [
+            0.0169895666,
+            0.1155723491
+          ]
+        }
+      ]
+    },
+    "corrected": {
+      "status": "COMPLETE_IS_AGGREGATES",
+      "eligible_disclosures": 18,
+      "n_event": 14,
+      "n_ordinary": 94,
+      "theta": 0.0156742913,
+      "iid_interval": [
+        0.0032693822,
+        0.0271450376
+      ],
+      "issuer_range": [
+        0.011670206194247253,
+        0.021096091488977273
+      ],
+      "date_range": [
+        -0.009313568352941178,
+        0.02522617757636364
+      ],
+      "variants": 972,
+      "original_nav_gaps": 12,
+      "horizons": [
+        {
+          "horizon": "1",
+          "event_cc_mean": -0.0230795818,
+          "ordinary_cc_mean": -0.0197533679,
+          "n_event": 13,
+          "n_ordinary": 104,
+          "cc_difference": -0.0033262138,
+          "cc_iid_interval": [
+            -0.0116455528,
+            0.0049951853
+          ],
+          "theta": -0.0001838911,
+          "theta_iid_interval": [
+            -0.0056419313,
+            0.0053236003
+          ]
+        },
+        {
+          "horizon": "2",
+          "event_cc_mean": -0.0219953174,
+          "ordinary_cc_mean": -0.0180488186,
+          "n_event": 14,
+          "n_ordinary": 103,
+          "cc_difference": -0.0039464988,
+          "cc_iid_interval": [
+            -0.0130115095,
+            0.0067050103
+          ],
+          "theta": 0.0037252123,
+          "theta_iid_interval": [
+            -0.0042015101,
+            0.0114347107
+          ]
+        },
+        {
+          "horizon": "3",
+          "event_cc_mean": -0.0264978872,
+          "ordinary_cc_mean": -0.0187555684,
+          "n_event": 15,
+          "n_ordinary": 103,
+          "cc_difference": -0.0077423189,
+          "cc_iid_interval": [
+            -0.0186386209,
+            0.0023326531
+          ],
+          "theta": 0.0085769789,
+          "theta_iid_interval": [
+            0.0022321921,
+            0.0151384441
+          ]
+        },
+        {
+          "horizon": "5",
+          "event_cc_mean": -0.0195385614,
+          "ordinary_cc_mean": -0.0199681338,
+          "n_event": 15,
+          "n_ordinary": 106,
+          "cc_difference": 0.0004295725,
+          "cc_iid_interval": [
+            -0.0122069642,
+            0.0134696431
+          ],
+          "theta": 0.00216951,
+          "theta_iid_interval": [
+            -0.0073452124,
+            0.0114940137
+          ]
+        },
+        {
+          "horizon": "10",
+          "event_cc_mean": -0.0260073072,
+          "ordinary_cc_mean": -0.0157185279,
+          "n_event": 15,
+          "n_ordinary": 103,
+          "cc_difference": -0.0102887793,
+          "cc_iid_interval": [
+            -0.0261271757,
+            0.0065097478
+          ],
+          "theta": 0.0123930595,
+          "theta_iid_interval": [
+            0.0007225017,
+            0.0233933641
+          ]
+        },
+        {
+          "horizon": "21",
+          "event_cc_mean": -0.0222394775,
+          "ordinary_cc_mean": -0.0115934709,
+          "n_event": 14,
+          "n_ordinary": 94,
+          "cc_difference": -0.0106460066,
+          "cc_iid_interval": [
+            -0.0283269027,
+            0.0072806558
+          ],
+          "theta": 0.0156742913,
+          "theta_iid_interval": [
+            0.0032693822,
+            0.0271450376
+          ]
+        },
+        {
+          "horizon": "42",
+          "event_cc_mean": 0.0216171929,
+          "ordinary_cc_mean": 0.0002299873,
+          "n_event": 10,
+          "n_ordinary": 85,
+          "cc_difference": 0.0213872056,
+          "cc_iid_interval": [
+            -0.0089761425,
+            0.0538991668
+          ],
+          "theta": 0.0080426814,
+          "theta_iid_interval": [
+            -0.0245659178,
+            0.0381741461
+          ]
+        },
+        {
+          "horizon": "63",
+          "event_cc_mean": -0.0274273274,
+          "ordinary_cc_mean": 0.0084444909,
+          "n_event": 10,
+          "n_ordinary": 79,
+          "cc_difference": -0.0358718183,
+          "cc_iid_interval": [
+            -0.1258836783,
+            0.0400734608
+          ],
+          "theta": 0.049028496,
+          "theta_iid_interval": [
+            0.0030048068,
+            0.0884690584
+          ]
+        },
+        {
+          "horizon": "expiry",
+          "event_cc_mean": 0.0156928363,
+          "ordinary_cc_mean": 0.0241003647,
+          "n_event": 9,
+          "n_ordinary": 77,
+          "cc_difference": -0.0084075284,
+          "cc_iid_interval": [
+            -0.0817110021,
+            0.0601132125
+          ],
+          "theta": 0.047453853,
+          "theta_iid_interval": [
+            0.0050621484,
+            0.0881731286
+          ]
+        }
+      ]
+    }
+  },
+  "portfolios": {
+    "original": {
+      "status": "COMPLETE_STANDING_NBBO_ASSUMPTION",
+      "initial_nav": 1000000.0,
+      "nav_csv": "original_conditional_nav.csv",
+      "cagr": -0.006058582499610998,
+      "annualized_volatility": 0.007663254378886966,
+      "sharpe": -0.7891684708086207,
+      "maximum_drawdown": 0.016968925800017742,
+      "stock_turnover": 0.7295645600448396,
+      "daily_return_skew_unbiased": -3.518807805820847,
+      "worst_month_return": -0.006526253335219834,
+      "worst_month": "2025-04"
+    },
+    "corrected": {
+      "status": "COMPLETE_STANDING_NBBO_ASSUMPTION",
+      "initial_nav": 1000000.0,
+      "nav_csv": "corrected_conditional_nav.csv",
+      "cagr": -0.00639648744709731,
+      "annualized_volatility": 0.00769119559572169,
+      "sharpe": -0.8304818818728942,
+      "maximum_drawdown": 0.017169031989435535,
+      "stock_turnover": 0.7568572836125934,
+      "daily_return_skew_unbiased": -3.485041155386875,
+      "worst_month_return": -0.006526253335219834,
+      "worst_month": "2025-04"
+    },
+    "causal": {
+      "status": "COMPLETE_STANDING_NBBO_ASSUMPTION",
+      "initial_nav": 1000000.0,
+      "nav_csv": "causal_conditional_nav.csv",
+      "cagr": -0.00639648744709731,
+      "annualized_volatility": 0.00769119559572169,
+      "sharpe": -0.8304818818728942,
+      "maximum_drawdown": 0.017169031989435535,
+      "stock_turnover": 0.7568572836125934,
+      "daily_return_skew_unbiased": -3.485041155386875,
+      "worst_month_return": -0.006526253335219834,
+      "worst_month": "2025-04"
+    }
+  },
+  "portfolio_headline": "causal",
+  "correction_summary": "Post-IS chronology repair changes eligibility from 16 to 18, retaining rules and both versions. Ordinary controls regenerate under the same algorithm; differences cannot be attributed solely to restored events. Legacy V2 ledger: 1 open at window end.",
+  "cost_summary": "Doubled-cost theta: original +2.01, corrected +1.65 pp. Relative gaps need not imply absolute profits. Causal peak observed half-spread is 3.25x the booked haircut. Commissions, impact and financing are additional.",
+  "capacity_summary": "Causal-ledger capacity: complete 20-session volume for 1/14 positions; 1/14 pass one contract at conditional 1% ADV. Absent-bar/listing assumptions and unresolved size units preclude an executable dollar-capacity claim.",
+  "factor_summary": "Conditional causal beta 0.024. Fixed SPY, IWD-IWF and MTUM-SPY price-only proxies use HAC(21). Idle capital, dividends omitted, few active episodes and nonlinear exposure preclude an established-alpha interpretation.",
+  "conclusion": "Both IS versions remain exploratory. Source repairs and conditional valuation improve auditability, not independent sample size, validated event alpha, execution readiness or demonstrated capacity. OOS evidence is still absent.",
+  "portfolio_repair": {
+    "version": "causal_portfolio_v3",
+    "event_evidence_version": "corrected_is_v2",
+    "selection_basis": "OBJECTIVE_TIMING_REPAIR_NOT_PERFORMANCE",
+    "stage": "POST_IS_IMPLEMENTATION_REPAIR",
+    "legacy_portfolios_retained": [
+      "original",
+      "corrected"
+    ],
+    "live_execution_validated": false
+  }
+}

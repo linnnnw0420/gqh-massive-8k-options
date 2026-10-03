@@ -1,0 +1,137 @@
+{
+  "version": "corrected_is_v2_clock_repair",
+  "frozen_utc": "2026-10-03T20:14:21.777299+00:00",
+  "source_review_sha256": "b587e45550608c31c1cc3f794bdf8168865ff6b1734ca3412a645a216667e4f2",
+  "corrected_rows": [
+    [
+      "COF",
+      "Discover",
+      "000119312524039233",
+      "2024-02-20 06:12:03"
+    ],
+    [
+      "HD",
+      "SRS",
+      "000110465924040163",
+      "2024-03-28 08:30:39"
+    ],
+    [
+      "BA",
+      "Spirit",
+      "000119312524172676",
+      "2024-07-01 06:06:32"
+    ],
+    [
+      "BLK",
+      "Preqin",
+      "000119312524172680",
+      "2024-07-01 06:08:01"
+    ],
+    [
+      "AMD",
+      "ZT",
+      "000119312524202457",
+      "2024-08-19 06:22:30"
+    ],
+    [
+      "BLK",
+      "HPS",
+      "000119312524269350",
+      "2024-12-03 06:09:31"
+    ],
+    [
+      "TMO",
+      "Solventum P&F",
+      "000009774525000016",
+      "2025-02-25 16:17:16"
+    ],
+    [
+      "NOW",
+      "Moveworks",
+      "000137371525000095",
+      "2025-03-10 09:02:23"
+    ],
+    [
+      "GOOGL",
+      "Wiz",
+      "000165204425000027",
+      "2025-03-18 08:43:32"
+    ],
+    [
+      "UBER",
+      "Trendyol GO",
+      "000155278125000160",
+      "2025-05-06 08:21:08"
+    ],
+    [
+      "CHTR",
+      "Cox",
+      "000114036125019410",
+      "2025-05-16 07:08:51"
+    ],
+    [
+      "CRM",
+      "Informatica",
+      "000119312525126271",
+      "2025-05-27 08:11:04"
+    ],
+    [
+      "QCOM",
+      "Alphawave",
+      "000110465925057814",
+      "2025-06-09 16:05:19"
+    ],
+    [
+      "UNP",
+      "Norfolk Southern",
+      "000119312525167154",
+      "2025-07-29 07:16:26"
+    ],
+    [
+      "TMO",
+      "Clario",
+      "000009774525000156",
+      "2025-10-29 06:05:40"
+    ],
+    [
+      "SCHW",
+      "Forge",
+      "000119312525268187",
+      "2025-11-06 08:30:42"
+    ],
+    [
+      "ABT",
+      "Exact",
+      "000110465925114422",
+      "2025-11-20 07:37:40"
+    ],
+    [
+      "NFLX",
+      "WBD Streaming & Studios",
+      "000119312525308651",
+      "2025-12-05 07:31:07"
+    ]
+  ],
+  "additional_industry_groups": {
+    "UBER": "Industrials",
+    "NFLX": "Communication Services"
+  },
+  "industry_policy": "Manual broad groups consistent with the existing grouping convention; not a point-in-time sector feed. Existing numerical exposure limits are unchanged.",
+  "unchanged": [
+    "hypothesis",
+    "universe",
+    "IS/OOS dates",
+    "strategy",
+    "costs",
+    "horizons",
+    "contract-selection rules",
+    "ordinary-date template algorithm and seed",
+    "risk limits"
+  ],
+  "preserve_first_IS": true,
+  "reason": "Remove two future-only exclusion reasons and apply the unchanged pre-entry financial-news screen. Restore both regardless of future return or pricing coverage.",
+  "ordinary_control_policy": "Rerun the unchanged seed-7/template procedure against the corrected event set. Report the old realization separately; changes are not selected by control performance.",
+  "late_event_policy": "No post-2025 prices or forced year-end liquidation. Exits beyond the IS fence remain censored; any surviving position is OPEN_AT_WINDOW_END.",
+  "OOS_readiness": "NOT_PASSED_COMPLETE_GENERAL_EVENT_SOURCES_UNAVAILABLE",
+  "source_gaps": "See correction_manifest_v2.json and rationale for source scope, co-news and exact-clock limitations. This is a post-IS repair, not pristine preregistration."
+}
