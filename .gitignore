@@ -1,0 +1,10 @@
+# Keep API credentials and cached API responses local
+.env
+.env.*
+!.env.example
+.massive_cache/
+
+.venv/
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
