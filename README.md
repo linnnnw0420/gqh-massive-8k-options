@@ -74,7 +74,7 @@ Paper source, saved analysis tables and working drafts are archived outside this
 
 ## Submit
 
-On Devpost, submit the English PDF and a **public GitHub repository link** for both tracks; list every team member. The core note uses the stricter two-page notebook requirement, 11pt and standard margins. Local completion is not publication: public upload still needs the owner's approval.
+On Devpost, submit the English PDF and a **public GitHub repository link** for both tracks; list every team member. The core note uses the stricter two-page notebook requirement, 11pt and standard margins. The owner authorized publication of the reviewed code on October 4, 2026. The final English PDF is submitted separately on Devpost; a code push does not complete the Devpost submission.
 
 Never commit keys, `.env`, `.massive_cache`, licensed raw prices/volumes or private snapshots. Public notebook outputs stay empty. Retain null/negative findings, unavailable results and version changes. Short samples, issuer overlap, the static universe, retrospectively supplied labels, mark/assignment/dividend/financing assumptions and unmeasured fills limit inference.
 
