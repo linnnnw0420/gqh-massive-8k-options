@@ -3,7 +3,7 @@
 One submission for the Systematic Trading main track and Massive subtrack.
 **Current status:** IS and the single contestant OOS both completed with identical computational source; 23 offline tests passed. Primary event-minus-ordinary incremental estimate: IS +0.87 percentage points (exploratory 95% CI [-0.37, 2.17]); OOS +3.38 pp ([1.18, 5.85]). OOS event covered calls themselves average -3.38%, so a positive increment contrast does not establish profitability or option mispricing. Capital NAV gaps are 130/502 IS and 6/166 OOS sessions, including unavailable terminal marks; full-period capital return/risk metrics remain unavailable. No parameters were changed after OOS.
 
-Open **submission.ipynb**. The English submission note is **quant_note.pdf**, with IS and the sole completed contestant OOS reported separately. Editable source: **quant_note.tex**.
+Open **submission.ipynb**. The final English PDF is submitted separately on Devpost. Paper source and saved analysis exports are kept outside this code repository; they are not runtime inputs.
 
 ## Setup and reproduce
 
@@ -56,7 +56,7 @@ Version **LITERAL_TAG_UNION_POST_IS_V4**, explicitly adopted after the original 
 - Capital ledger: $1 million, one contract per admitted event, at most one concurrent position per ticker, no leverage; name 10%, industry 25%, gross 100%, pause at 10% drawdown and resume below 5%. Orders use the prior completed session's state. The inherited 14-name industry map remains fixed: unmapped names are included in the event study but skipped in the capital ledger. These are different estimands.
 - More-than-three-session stale or missing marks stay unavailable. No zero fill, interpolation, missing-return bridge or favorable event removal. Full-path Sharpe/volatility/drawdown/turnover stay unavailable when the NAV path is incomplete.
 
-The conjecture is an event-specific option premium, not a prediction that every acquisition raises its buyer's stock. The current vendor-defined pool is broader than the original first-buyer economic screen; interpretation must reflect that change. See [RULES.md](RULES.md) and [RESEARCH_LOG.md](RESEARCH_LOG.md).
+The conjecture is an event-specific option premium, not a prediction that every acquisition raises its buyer's stock. The current vendor-defined pool is broader than the original first-buyer economic screen; interpretation must reflect that change. See [RULES.md](RULES.md). Original pre-results hypothesis: commit `63664eb`; accepted V4 IS package: `b2dcec4`; completed one-shot OOS report: `d64caa3`. Earlier hypotheses, unsuccessful approaches and V1–V4 outcomes remain in Git history. V4 is a disclosed post-IS revision, not the original preregistration; no OOS retuning occurred. Each window retains all 972 correlated sensitivity cells. AI assisted research, implementation and drafting; the entrant remains responsible.
 
 ## What is here
 
@@ -68,11 +68,9 @@ The conjecture is an event-specific option premium, not a prediction that every 
 | `research/` | Active clock, transport, study and causal capital calculation helpers |
 | `tests/` | Offline synthetic checks of timing, boundaries, missingness and execution |
 | `HYPOTHESIS.md` | Original pre-results hypothesis, unchanged |
-| `RULES.md`, `RESEARCH_LOG.md` | Official rules and honest version provenance |
-| `quant_note.tex`, `quant_note.pdf` | English submission note source and PDF, including completed OOS |
-| `results/` | Derived IS/OOS aggregate tables, metrics and gappy NAV curves |
+| `RULES.md` | Maintained official rules; version provenance is recorded above and in Git |
 
-Historical notebooks, reports and inactive audit scripts are recoverably archived under ignored `.massive_cache/implementation_archive/clean_delivery_20261004/` and retained in Git history. They are not additional submission entry points. Raw data, private snapshots, `.env`, `.venv` and Git history were preserved.
+Paper source, saved analysis tables and working drafts are archived outside this repository. Older inactive workflows remain in the ignored local archive and Git history. The hidden environment, private data cache and completed OOS journal remain local and must not be uploaded. The public project contains code, setup and reproduction instructions; the final PDF is a separate submission.
 
 ## Submit
 

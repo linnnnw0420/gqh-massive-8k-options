@@ -13,3 +13,10 @@ __pycache__/
 *.private.*
 .research-private/
 research_runs/
+
+# Generated paper and analysis exports are kept outside the code repository
+/results/
+/*.pdf
+/*.tex
+*.aux
+*.synctex.gz
