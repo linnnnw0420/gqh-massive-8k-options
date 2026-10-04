@@ -1,12 +1,11 @@
-# GQH 2026 | Massive 8-K options research
+# GQH 2026 — M&A-tagged filings and covered calls
 
-One repository contains the official Massive starter notebook and this Systematic Trading study. The primary question is whether a covered call earns a larger **net increment over stock exposure** after a qualifying buyer agreement disclosure than on ordinary dates for the same tickers. A positive relative increment need not mean a profitable portfolio.
+One submission for the Systematic Trading main track and Massive subtrack.
+**Current status:** V4 IS completed; 23 offline tests passed. Primary incremental event-minus-ordinary estimate +0.87 percentage points, exploratory 95% interval [-0.37, 2.17]; inconclusive. The capital ledger has 130/502 NAV gaps, so full-path performance metrics are unavailable. OOS is ready for explicit one-shot approval and has not run.
 
-[HYPOTHESIS.md](HYPOTHESIS.md) is the unchanged pre-results hypothesis, committed as `63664eb` before the first IS run. [RULES.md](RULES.md) is the maintained rules/status reference; [RESEARCH_LOG.md](RESEARCH_LOG.md) records later diagnostics and implementation repairs. The two-page English note is `quant_note.pdf`; supporting references and aggregate evidence are in `reports/`. Main-track and Massive scores are separate. No stable edge, completed OOS study, or judges' sealed replication is claimed.
+Open **submission.ipynb**. The English note is **quant_note.pdf** (a draft until the single contestant OOS is evaluated).
 
-## Setup
-
-The tested environment is WSL/Linux, Python **3.14.2**, with versions pinned in `requirements.txt`. From this repository root, with [uv](https://docs.astral.sh/uv/) installed:
+## Setup and reproduce
 
 ```bash
 uv venv --python 3.14.2 .venv
@@ -14,71 +13,70 @@ uv pip install --python .venv/bin/python -r requirements.txt
 .venv/bin/python run_research.py --mode check
 ```
 
-Configure `MASSIVE_API_KEY` locally using the ignored `.env` format in `.env.example`, or the process environment. The authenticating process loads the key into memory only; it must not print, return, log or commit the value. API access and sponsor entitlements are required for an uncached reproduction. No second data-provider key is needed by the current IS command.
+Set `MASSIVE_API_KEY` in the environment or ignored `.env` using `.env.example`.
+The authenticating process loads it in memory; no key is printed or cached.
+The submission needs Massive disclosures, historical option contracts and daily option bars, not SEC downloads, a second provider or private approval files.
 
-The original `setup.sh` and `setup.ps1` are retained. For notebook inspection, open this folder in VS Code and choose its `.venv` kernel, or start `.venv/bin/python -m jupyter lab`. The root command below is the explicit reproduction entry point; importing the research modules does not execute the notebook.
-
-## Reproduction
-
-The root command supports three operational modes:
-
-| Mode | Action |
-|---|---|
-| `check` | Run synthetic/offline tests; no market-data retrieval or actual study execution. |
-| `complete-is` | Reproduce V1/V2 IS studies, apply the declared V3 causal portfolio repair, run each ledger's uniform diagnostics, export aggregates, and generate the draft note. |
-| `report` | Regenerate reports/PDF from a completed original + corrected + causal bundle; no API requests or strategy rerun. |
-
-Use a new ignored run directory for a new full reproduction:
+Run the accepted version on IS:
 
 ```bash
-.venv/bin/python run_research.py --mode complete-is --execute \
-  --run-dir .massive_cache/research_runs/submission-is
+.venv/bin/python run_research.py --mode submission --execute   --accept-operational-revision --start 2024-01-01 --end 2025-12-31
 ```
 
-Regenerate the report from that same completed run:
+After reviewing this exact implementation and explicitly approving the single OOS run:
 
 ```bash
-.venv/bin/python run_research.py --mode report \
-  --run-dir .massive_cache/research_runs/submission-is
+.venv/bin/python run_research.py --mode submission --execute   --accept-operational-revision --approve-oos-once   --start 2026-01-01 --end 2026-08-31
 ```
 
-`--execute` enables the bounded IS stages only. `--offline` is not a full-command substitute: a cached study-only reproduction is available through `research/reproduce_is.py --offline`, while report mode is already offline. Missing inputs fail explicitly rather than triggering alternate event/contract selection. `--mode oos` fails closed until unseen-window eligibility and the complete readiness gate pass. Do not enable notebook flags to bypass that gate.
+The notebook exposes the same commands. Run switches default to False. The runner preserves immutable local results under `.massive_cache/submission_v4/`, requires the OOS source to match completed IS, and records the OOS outcome attempt before requesting option data. Existing attempts are never overwritten. Importing modules or Run All with unchanged switches does not execute either study.
 
-## Method and versions
+For judges' supplied unseen dates, from a clean kernel:
 
-The approved universe is the starter's static TOP100, with IS **2024-01-01 through 2025-12-31**. One economic category combines `acquisition_agreement` and `merger_agreement`: the buyer's first definitive agreement to acquire control of an operating business, with transaction/accession deduplication and the approved concurrent-news screen. Seller disclosures, historical references, nonbinding proposals, minority/debt transactions and later updates are not automatically equivalent signals.
+```python
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path.cwd() / 'research'))
+from submission_variant import run_submission_study
+study = run_submission_study(start_date, end_date, api_key, judges_window=True)
+study.tables['theta_board']
+```
 
-The sole primary strategy is covered-call exposure implemented through the starter's parity-derived stock proxy. Contracts are fixed from `t_pre`: 90–180 calendar DTE nearest 120, with the sold call about 5% above pre-event spot. Entry uses the first full NYSE session close after the reviewed SEC clock; a premarket filing can enter at that same session close. The primary exit is **`t0 + 21` sessions**, capped at expiry, so the actual holding period need not be 21 sessions. An earlier press release may precede the filing and its pre-filing chain.
+Judges select that mode; entrants do not use it to bypass their one-shot OOS. This function uses the same event, pricing and risk definitions and needs only a key and dates. It does not rely on local IS identities or SEC files. Actual sealed performance is not claimed.
 
-All required horizons, ordinary-date controls, uncertainty, stock comparison, category/expiry/OTM/timing sensitivities and doubled costs are retained. The primary cost model is a 5% haircut on each selected option leg's premium on each side; it is not an observed spread, commission or impact model. Full-path annual volatility, Sharpe and drawdown remain unavailable when daily NAV is incomplete. Complete metrics under the separate standing-NBBO assumption remain explicitly conditional.
+## Exact strategy
 
-| Version | Evidence and interpretation |
+Version **LITERAL_TAG_UNION_POST_IS_V4**, explicitly adopted after the original IS:
+
+- Literal Massive `acquisition_agreement OR merger_agreement` labels, official static TOP100; deduplicate accession and union tags. Include an accession only with one unambiguous TOP100 ticker. This does not assert buyer role, control, first announcement or independent transaction. Repeated deals, seller/minority/update filings can remain.
+- Contract selection: regular session strictly before filing date. Entry: next regular NYSE session close. A labeled end-of-filing-day scheduling surrogate is not an actual SEC acceptance timestamp. No filing-day entry is presented as executable.
+- One covered-call proxy: parity-derived stock plus a short call selected 5% OTM before the filing. Primary 90–180 DTE bucket, nearest 120 DTE; primary exit 21 sessions after entry, capped by expiry. Keep all eight official session horizons plus expiry.
+- Cost: 5% of each option leg's premium on each side, including both parity legs; also report double costs. Flat parity carry 4%; idle cash and Sharpe risk-free convention 0. Daily last-trade marks are proxies, not executable NBBO quotes.
+- Test event covered-call increment over the stock proxy against 120 ordinary date draws with seed 7 and a 30-calendar-day tagged-filing exclusion. Report every neighboring expiry/OTM/timing/category cell; do not select the best result.
+- Capital ledger: $1 million, one contract per admitted event, at most one concurrent position per ticker, no leverage; name 10%, industry 25%, gross 100%, pause at 10% drawdown and resume below 5%. Orders use the prior completed session's state. The inherited 14-name industry map remains fixed: unmapped names are included in the event study but skipped in the capital ledger. These are different estimands.
+- More-than-three-session stale or missing marks stay unavailable. No zero fill, interpolation, missing-return bridge or favorable event removal. Full-path Sharpe/volatility/drawdown/turnover stay unavailable when the NAV path is incomplete.
+
+The conjecture is an event-specific option premium, not a prediction that every acquisition raises its buyer's stock. The current vendor-defined pool is broader than the original first-buyer economic screen; interpretation must reflect that change. See [RULES.md](RULES.md) and [RESEARCH_LOG.md](RESEARCH_LOG.md).
+
+## What is here
+
+| File | Purpose |
 |---|---|
-| V1 original | First IS output preserved. A clean-process cached reproduction matches the eleven audited table families at declared numerical tolerances. Legacy portfolio admission and valuation limitations remain. |
-| V2 clock repair | A price-blind post-IS chronology audit restored Uber/Trendyol and Netflix/WBD because the prior exclusion reasons occurred after the correct entry close. The corrected study is separate; its regenerated ordinary-control realization also changes and is disclosed. |
-| V3 lagged-state repair | Implemented, independently reviewed post-IS portfolio repair, evaluated once on saved V2 inputs with no HTTP. Orders use the entry-session-open decision clock and previous-close financial state; current closing prices/proceeds cannot determine admission or quantity. Corrected-V2 event tables are unchanged; the V3 ledger has 13 closed positions, two skips and one position open at window end. Its conditional standing-quote CAGR is about -0.64%, Sharpe -0.83, and maximum drawdown 1.72%. |
+| `submission.ipynb` | Short notebook entry and result display; empty public outputs |
+| `run_research.py` | Offline checks, bounded IS and one-shot contestant OOS |
+| `strategy_defs.py` | Pure calculation definitions extracted unchanged from the starter |
+| `research/` | Active clock, transport, study and causal capital calculation helpers |
+| `tests/` | Offline synthetic checks of timing, boundaries, missingness and execution |
+| `HYPOTHESIS.md` | Original pre-results hypothesis, unchanged |
+| `RULES.md`, `RESEARCH_LOG.md` | Official rules and honest version provenance |
+| `quant_note.tex`, `quant_note.pdf` | English submission note source and PDF |
 
-Quote diagnostics retain each version's original cashflows and decisions, with declared 60-second, 300-second and separate standing-state policies. They improve valuation evidence without repairing the legacy admission path or proving executable fills. Positions still open at the final IS session remain open; their last mark is not a sale, and no later scheduled-exit price is read. All-leg capacity diagnostics use the same twenty completed pre-entry sessions and never retrospectively reject or restore trades.
+Historical notebooks, reports and inactive audit scripts are recoverably archived under ignored `.massive_cache/implementation_archive/clean_delivery_20261004/` and retained in Git history. They are not additional submission entry points. Raw data, private snapshots, `.env`, `.venv` and Git history were preserved.
 
-## Files and data boundaries
+## Submit
 
-| Path | Purpose |
-|---|---|
-| `gator-quant-hacks-8k-options-challenge.ipynb` | Preserved first-IS strategy source with empty public outputs; the root CLI reproduces the later versioned evidence. |
-| `HYPOTHESIS.md`, `RULES.md`, `RESEARCH_LOG.md` | Preregistration, maintained requirements/status, and versioned research provenance. |
-| `run_research.py`, `research/`, `tests/` | One root CLI, controlled notebook-source extraction, diagnostics/report generators and offline tests. |
-| `requirements.txt`, `.env.example`, `.gitignore` | Pinned dependencies, placeholder credential format and private-data exclusions. |
-| `reports/`, `quant_note.pdf` | Generated allowlisted derived evidence and the two-page English draft note after successful report generation. |
-| `.massive_cache/` | Ignored licensed responses, private snapshots, run manifests and detailed inputs/outputs. Never publish. |
+On Devpost, submit the English PDF and a **public GitHub repository link** for both tracks; list every team member. The core note uses the stricter two-page notebook requirement, 11pt and standard margins. Local completion is not publication: public upload still needs the owner's approval.
 
-Identical historical requests reuse shared private caches by complete request hash; they are immutable cached responses, not fresh observations. Original, corrected and causal run manifests and outputs stay separate. The report exporter publishes only allowlisted aggregates and derived portfolio curves, with file hashes and numeric/provenance checks. The executed notebook is privately archived; public notebook outputs are stripped and its strategy-code AST is unchanged. No raw option prices, volumes, filing text, private snapshots or authentication logs belong in Git.
+Never commit keys, `.env`, `.massive_cache`, licensed raw prices/volumes or private snapshots. Public notebook outputs stay empty. Retain null/negative findings, unavailable results and version changes. Short samples, issuer overlap, the static universe, retrospectively supplied labels, mark/assignment/dividend/financing assumptions and unmeasured fills limit inference.
 
-## Remaining limits and submission
-
-The automatic arbitrary-window classifier is **not ready**: complete filing exhibits and auditable acceptance/public-availability evidence are unavailable for the current automated pipeline. Manual IS labels and date arguments do not satisfy Massive's API-key-only unseen-window requirement. Contestant OOS **2026-01-01 through 2026-08-31** has not been evaluated; it remains blocked until source/classifier, clock, pricing, costs and reproduction are frozen and validated. Judges alone run the sealed window.
-
-Synthetic parity, daily last trades and supplemental quote states retain dividend, financing, early-assignment, deliverable, synchronization and execution limitations. Static TOP100 selection, retrospective tags, a small dependent event sample and imperfect ordinary controls limit inference. Factor regressions and capacity screens do not establish causal alpha or scalable profit. Preserve failures, unavailable observations and post-IS changes.
-
-Submit an English PDF and this public GitHub link on Devpost: [gqh-massive-8k-options](https://github.com/linnnnw0420/gqh-massive-8k-options). The core note remains at most two pages under the stricter local Massive instruction; references/appendix do not replace required core evidence. The generated note is a **draft/incomplete** artifact while OOS and unseen-window readiness remain unresolved. All team members must be listed. No Devpost submission is claimed.
-
-Official sources: [Systematic Trading](https://www.gqhacks.com/tracks/systematic-trading), [Massive](https://www.gqhacks.com/tracks/systematic-trading/massive), the retained notebook Markdown, and [NYSE calendar](https://www.nyse.com/markets/hours-calendars). The maintained deadline conflict remains: verified pages showed October 4 at 11:00 AM ET, while the supplied brief showed 10:00 AM for Devpost and 11:00 AM for code. Prepare by 10:00 AM until an authoritative clarification resolves it.
+Deadline references conflict: prepare for October 4, **10:00 AM Eastern**, the earlier supplied Devpost deadline. Official sources and scoring are maintained in RULES.md; no score or profitable edge is guaranteed.

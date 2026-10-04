@@ -1,0 +1,393 @@
+{
+  "version": "LITERAL_TAG_UNION_POST_IS_V4",
+  "window": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "primary": {
+    "bucket": "3-6m",
+    "entry": "full",
+    "otm": 0.05,
+    "horizon": 21
+  },
+  "event_definition": "Accession-deduplicated vendor agreement-tag union; no transaction independence claim.",
+  "event_all": {
+    "rows": 56,
+    "issuers": 25,
+    "issuer_counts": {
+      "COF": 7,
+      "CHTR": 6,
+      "BLK": 4,
+      "UNP": 4,
+      "INTC": 3,
+      "CVX": 3,
+      "VZ": 3,
+      "UBER": 2,
+      "COP": 2,
+      "AMD": 2,
+      "EMR": 2,
+      "TMO": 2,
+      "CRM": 2,
+      "LOW": 2,
+      "NFLX": 2,
+      "HD": 1,
+      "BA": 1,
+      "ISRG": 1,
+      "NOW": 1,
+      "GOOGL": 1,
+      "T": 1,
+      "QCOM": 1,
+      "TMUS": 1,
+      "SCHW": 1,
+      "ABT": 1
+    },
+    "max_issuer_share": 0.125,
+    "issuer_hhi": 0.05931122448979592,
+    "effective_issuer_n": 16.86021505376344
+  },
+  "event_primary_candidates": {
+    "rows": 51,
+    "issuers": 24,
+    "issuer_counts": {
+      "COF": 7,
+      "CHTR": 5,
+      "UNP": 4,
+      "INTC": 3,
+      "CVX": 3,
+      "VZ": 3,
+      "UBER": 2,
+      "COP": 2,
+      "AMD": 2,
+      "EMR": 2,
+      "TMO": 2,
+      "CRM": 2,
+      "LOW": 2,
+      "NFLX": 2,
+      "BA": 1,
+      "BLK": 1,
+      "ISRG": 1,
+      "NOW": 1,
+      "GOOGL": 1,
+      "T": 1,
+      "QCOM": 1,
+      "TMUS": 1,
+      "SCHW": 1,
+      "ABT": 1
+    },
+    "max_issuer_share": 0.13725490196078433,
+    "issuer_hhi": 0.061130334486735875,
+    "effective_issuer_n": 16.358490566037734
+  },
+  "finite_event_increment": {
+    "rows": 38,
+    "issuers": 22,
+    "issuer_counts": {
+      "COF": 5,
+      "INTC": 3,
+      "CVX": 3,
+      "VZ": 3,
+      "CHTR": 3,
+      "UBER": 2,
+      "AMD": 2,
+      "CRM": 2,
+      "LOW": 2,
+      "BA": 1,
+      "COP": 1,
+      "ISRG": 1,
+      "TMO": 1,
+      "NOW": 1,
+      "EMR": 1,
+      "GOOGL": 1,
+      "T": 1,
+      "QCOM": 1,
+      "TMUS": 1,
+      "SCHW": 1,
+      "UNP": 1,
+      "ABT": 1
+    },
+    "max_issuer_share": 0.13157894736842105,
+    "issuer_hhi": 0.062326869806094184,
+    "effective_issuer_n": 16.044444444444444
+  },
+  "finite_control_increment": {
+    "rows": 84,
+    "issuers": 22,
+    "issuer_counts": {
+      "INTC": 11,
+      "CHTR": 8,
+      "COF": 7,
+      "TMO": 7,
+      "AMD": 5,
+      "CVX": 5,
+      "VZ": 4,
+      "LOW": 4,
+      "NFLX": 4,
+      "UBER": 4,
+      "QCOM": 3,
+      "ISRG": 3,
+      "ABT": 2,
+      "UNP": 2,
+      "COP": 2,
+      "TMUS": 2,
+      "NOW": 2,
+      "HD": 2,
+      "BLK": 2,
+      "CRM": 2,
+      "T": 2,
+      "SCHW": 1
+    },
+    "max_issuer_share": 0.13095238095238096,
+    "issuer_hhi": 0.06405895691609977,
+    "effective_issuer_n": 15.61061946902655
+  },
+  "unavailable_event_primary": 13,
+  "unavailable_control_primary": 14,
+  "theta_net_per_dollar_synthetic_stock": 0.008691541766478697,
+  "theta_bps": 86.91541766478697,
+  "same_issuer_positive_duration_overlap_pairs": 15,
+  "same_issuer_overlap_issuers": [
+    "CHTR",
+    "COF",
+    "CRM",
+    "NFLX",
+    "UNP",
+    "VZ"
+  ],
+  "issuer_with_multiple_accessions_count": 15,
+  "unique_accessions": 56,
+  "leave_one_issuer_out": [
+    {
+      "excluded_issuer": "ABT",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.008721473207448913
+    },
+    {
+      "excluded_issuer": "AMD",
+      "n_event": 36,
+      "n_control": 79,
+      "theta": 0.008403745513150492
+    },
+    {
+      "excluded_issuer": "BA",
+      "n_event": 37,
+      "n_control": 84,
+      "theta": 0.008153510237033462
+    },
+    {
+      "excluded_issuer": "BLK",
+      "n_event": 38,
+      "n_control": 82,
+      "theta": 0.007881931587355584
+    },
+    {
+      "excluded_issuer": "CHTR",
+      "n_event": 35,
+      "n_control": 76,
+      "theta": 0.009948028124473684
+    },
+    {
+      "excluded_issuer": "COF",
+      "n_event": 33,
+      "n_control": 77,
+      "theta": 0.007360558978354978
+    },
+    {
+      "excluded_issuer": "COP",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.008389569492386287
+    },
+    {
+      "excluded_issuer": "CRM",
+      "n_event": 36,
+      "n_control": 82,
+      "theta": 0.008526323728590786
+    },
+    {
+      "excluded_issuer": "CVX",
+      "n_event": 35,
+      "n_control": 79,
+      "theta": 0.00838422017471971
+    },
+    {
+      "excluded_issuer": "EMR",
+      "n_event": 37,
+      "n_control": 84,
+      "theta": 0.008370303491087517
+    },
+    {
+      "excluded_issuer": "GOOGL",
+      "n_event": 37,
+      "n_control": 84,
+      "theta": 0.00801451826406049
+    },
+    {
+      "excluded_issuer": "HD",
+      "n_event": 38,
+      "n_control": 82,
+      "theta": 0.008563975141014118
+    },
+    {
+      "excluded_issuer": "INTC",
+      "n_event": 35,
+      "n_control": 73,
+      "theta": 0.007528907870293542
+    },
+    {
+      "excluded_issuer": "ISRG",
+      "n_event": 37,
+      "n_control": 81,
+      "theta": 0.009046438737804472
+    },
+    {
+      "excluded_issuer": "LOW",
+      "n_event": 36,
+      "n_control": 80,
+      "theta": 0.009676790039722223
+    },
+    {
+      "excluded_issuer": "NFLX",
+      "n_event": 38,
+      "n_control": 80,
+      "theta": 0.009166584856776317
+    },
+    {
+      "excluded_issuer": "NOW",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.008260913058536585
+    },
+    {
+      "excluded_issuer": "QCOM",
+      "n_event": 37,
+      "n_control": 81,
+      "theta": 0.008636583483516851
+    },
+    {
+      "excluded_issuer": "SCHW",
+      "n_event": 37,
+      "n_control": 83,
+      "theta": 0.008620540843112994
+    },
+    {
+      "excluded_issuer": "T",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.00876828763002637
+    },
+    {
+      "excluded_issuer": "TMO",
+      "n_event": 37,
+      "n_control": 77,
+      "theta": 0.009193547531168831
+    },
+    {
+      "excluded_issuer": "TMUS",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.009178159598121292
+    },
+    {
+      "excluded_issuer": "UBER",
+      "n_event": 36,
+      "n_control": 80,
+      "theta": 0.008077701917222223
+    },
+    {
+      "excluded_issuer": "UNP",
+      "n_event": 37,
+      "n_control": 82,
+      "theta": 0.009636448828510218
+    },
+    {
+      "excluded_issuer": "VZ",
+      "n_event": 35,
+      "n_control": 80,
+      "theta": 0.010591322156607142
+    }
+  ],
+  "leave_one_issuer_out_theta_range": [
+    0.007360558978354978,
+    0.010591322156607142
+  ],
+  "leave_one_issuer_out_interpretation": "All issuers displayed; descriptive fragility only, never event exclusion or selection.",
+  "same_day_volume_all_priced_primary": {
+    "priced_events": 51,
+    "all_three_legs_positive_exact_day_volume": 36,
+    "unknown_or_zero_volume_events": 15,
+    "unknown_or_zero_leg_observations": 24,
+    "one_lot_over_minimum_volume_fraction": {
+      "n": 36,
+      "p50": 0.09545454545454546,
+      "p90": 0.5,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "interpretation": "Retrospective same-day trade-volume diagnostic; not a fill, spread, or scalable dollar-capacity claim."
+  },
+  "same_day_volume_finite_event_primary": {
+    "priced_events": 38,
+    "all_three_legs_positive_exact_day_volume": 30,
+    "unknown_or_zero_volume_events": 8,
+    "unknown_or_zero_leg_observations": 12,
+    "one_lot_over_minimum_volume_fraction": {
+      "n": 30,
+      "p50": 0.07941176470588235,
+      "p90": 0.5500000000000007,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "interpretation": "Retrospective same-day trade-volume diagnostic; not a fill, spread, or scalable dollar-capacity claim."
+  },
+  "same_day_volume_portfolio_executions": {
+    "priced_events": 12,
+    "all_three_legs_positive_exact_day_volume": 6,
+    "unknown_or_zero_volume_events": 6,
+    "unknown_or_zero_leg_observations": 11,
+    "one_lot_over_minimum_volume_fraction": {
+      "n": 6,
+      "p50": 0.030594405594405596,
+      "p90": 0.3333333333333333,
+      "p95": 0.41666666666666663,
+      "max": 0.5
+    },
+    "interpretation": "Retrospective same-day trade-volume diagnostic; not a fill, spread, or scalable dollar-capacity claim."
+  },
+  "capital_ledger_mapped_issuers": [
+    "ABT",
+    "AMD",
+    "BA",
+    "BLK",
+    "CHTR",
+    "COF",
+    "CRM",
+    "GOOGL",
+    "HD",
+    "NOW",
+    "QCOM",
+    "SCHW",
+    "TMO",
+    "UNP"
+  ],
+  "event_issuers_without_portfolio_sector": [
+    "COP",
+    "CVX",
+    "EMR",
+    "INTC",
+    "ISRG",
+    "LOW",
+    "NFLX",
+    "T",
+    "TMUS",
+    "UBER",
+    "VZ"
+  ],
+  "limitations": [
+    "Issuer concentration understates unresolved repeated-transaction dependence.",
+    "Row bootstrap intervals are exploratory; issuer and overlapping-window dependence remains.",
+    "Event/control quote attrition can change the original ordinary-template issuer weights.",
+    "The legacy mapped-sector capital ledger is a different estimand from all-TOP100 event theta."
+  ],
+  "snapshot_sha256": "1717888599745c093b68976f39b9daf95e33de63c3f1788e9f9fea4a42d2a420"
+}

@@ -71,7 +71,7 @@ def _capacity_scenarios(capacity, ledger, participation):
 
 
 def simulate_causal_portfolio(priced, start, end, sector_by_ticker, *, namespace, clock,
-                             initial_nav=1e6, primary_horizon=21, otm=.05, haircut=.05, participation=.01):
+                             initial_nav=1e6, primary_horizon=21, otm=.05, haircut=.05, participation=.01, window_role="is", submission_authorized=False, feature_warmup_start=None):
     """Commit orders at open from previous-close financial state; report at close.
 
     This version is an explicit post-IS causal repair. It changes admission timing,
@@ -80,8 +80,22 @@ def simulate_causal_portfolio(priced, start, end, sector_by_ticker, *, namespace
     execution leaves unknown cash permanently rather than pretending no fill.
     """
     start, end = _date(start), _date(end)
-    if not pd.Timestamp("2024-01-01") <= start <= end <= pd.Timestamp("2025-12-31"):
-        raise ValueError("Only the existing 2024-2025 IS outcomes are accepted.")
+    if window_role == "is":
+        if not pd.Timestamp("2024-01-01") <= start <= end <= pd.Timestamp("2025-12-31"):
+            raise ValueError("Only the existing 2024-2025 IS outcomes are accepted.")
+        feature_floor = pd.Timestamp("2023-12-01")
+    elif window_role == "oos" and (str(start.date()), str(end.date())) == ("2026-01-01", "2026-08-31"):
+        from valuation_policy import assert_primary_valuation
+        assert_primary_valuation(namespace)
+        feature_floor = pd.Timestamp("2025-12-01")
+    elif window_role == "submission" and submission_authorized is True:
+        from valuation_policy import assert_primary_valuation
+        assert_primary_valuation(namespace)
+        feature_floor = _date(feature_warmup_start)
+        if feature_floor > start or feature_floor < start-pd.Timedelta(days=31):
+            raise ValueError("Submission feature warmup must be at most31 calendar days.")
+    else:
+        raise ValueError("Only the complete fixed contestant OOS window is permitted; sealed dates are unsupported.")
     if (initial_nav, primary_horizon, otm, haircut) != (1e6, 21, .05, .05):
         raise ValueError("V3 retains the frozen capital, horizon, strike offset and cost parameter.")
     if not np.isfinite(participation) or not 0 < participation <= 1:
@@ -96,7 +110,7 @@ def simulate_causal_portfolio(priced, start, end, sector_by_ticker, *, namespace
     if not len(days) or start < calendar[0] or end > calendar[-1]:
         raise ValueError("The local calendar does not cover this portfolio window.")
     # The earliest permissible feature state is the explicitly documented warmup.
-    if clock.session_before(days[0]) < pd.Timestamp("2023-12-01"):
+    if clock.session_before(days[0]) < feature_floor:
         raise ValueError("Prior-session input would exceed the feature-only warmup fence.")
     short_key = f"C_U{otm}"
     ledger, entries, seen = [], {}, set()
@@ -353,7 +367,7 @@ def simulate_causal_portfolio(priced, start, end, sector_by_ticker, *, namespace
             "status": "UNAVAILABLE_PREVIOUS_NAV_GAP"}
         yearly.append({"year": int(year), **block})
     capacity = pd.DataFrame(volume_rows)
-    return {"daily": daily, "ledger": pd.DataFrame(ledger), "order_decisions": pd.DataFrame(decisions),
+    result = {"daily": daily, "ledger": pd.DataFrame(ledger), "order_decisions": pd.DataFrame(decisions),
         "metrics": metrics_at(daily, initial_nav), "annual_metrics": pd.DataFrame(yearly),
         "capacity": capacity, "capacity_scenarios": _capacity_scenarios(capacity, ledger, participation),
         "exposure_breaches": pd.DataFrame(breaches),
@@ -381,3 +395,10 @@ def simulate_causal_portfolio(priced, start, end, sector_by_ticker, *, namespace
             "Gross name/sector/total limits use synthetic stock-reference exposure; marked stock less sold-call value is not delta-adjusted net exposure.",
             "No missing NAV is filled and no return bridges a gap; full-path risk and mean-NAV turnover remain unavailable when incomplete.",
             "Manual industry mappings, historical universe survival, retrospective taxonomy and event-observation biases remain limitations."]}
+
+    if window_role == "oos":
+        from valuation_policy import POLICY, policy_sha256
+        result["config"].update(window_role="oos", window=[str(start.date()), str(end.date())],
+                                valuation_policy=dict(POLICY), valuation_policy_sha256=policy_sha256())
+        result["limitations"].append("The narrower source-complete automatic cohort is a separate frozen post-IS operational version; skipped boundaries remain disclosed.")
+    return result

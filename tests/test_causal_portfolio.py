@@ -56,7 +56,7 @@ class SyntheticEvent:
 class CausalTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.runtime = load_runtime(Path(__file__).resolve().parent.parent / "gator-quant-hacks-8k-options-challenge.ipynb",
+        cls.runtime = load_runtime(Path(__file__).resolve().parent.parent / "strategy_defs.py",
                                    forbidden_transport, forbidden_transport)
         cls.clock = cls.runtime.clock
         cls.namespace = cls.runtime.namespace

@@ -4,7 +4,7 @@ Loading this module never executes a notebook, authenticates, or retrieves data.
 The caller supplies audited cache/auth/pagination transports. The AST loader
 imports only allowlisted dependencies, configurations, definitions and classes;
 credential loaders, notebook output cells and top-level API calls are omitted.
-No OOS or sealed-window entry point is enabled by this implementation.
+OOS has a separate fixed-window entry point; the root runner owns freeze and one-shot authorization. Sealed data are never supported.
 """
 from __future__ import annotations
 
@@ -22,6 +22,7 @@ import uuid
 
 import numpy as np
 import pandas as pd
+import event_pipeline as event_layer
 from event_pipeline import NYSEClock, EVENT_COLUMNS
 
 
@@ -85,12 +86,12 @@ class ISFence:
         self._get, self._get_all = api_get, api_get_all
         self.requests, self.boundary_notes = [], []
 
-    def _day(self, value, label, *, feature=False):
+    def _day(self, value, label, *, feature=False, source=False):
         try:
             day = pd.Timestamp(value)
         except Exception as exc:
             raise ScopeViolation(f"Invalid {label} date.") from exc
-        lower = self.feature_start if feature else self.start
+        lower = self.source_start if source and getattr(self, "window_role", "is") == "oos" else (self.feature_start if feature else self.start)
         if pd.isna(day) or day.tzinfo is not None or day != day.normalize() or not lower <= day <= self.end:
             raise ScopeViolation(f"{label} date is outside the explicit IS fence.")
         return day
@@ -114,9 +115,20 @@ class ISFence:
         metadata = {"route": route, "start": None, "end": None}
         if route == "/stocks/taxonomies/vX/disclosures":
             metadata["kind"] = "taxonomy_definitions"
+        elif route == "/stocks/filings/vX/index":
+            from safe_transport import validate_index_parameters
+            try:
+                validate_index_parameters(parameters, window_role=getattr(self, "window_role", "is"))
+            except ValueError as exc:
+                raise ScopeViolation("Invalid bounded 8-K index scope.") from exc
+            lower = self._day(parameters["filing_date.gte"], "index start", source=True)
+            upper = self._day(parameters["filing_date.lte"], "index end", source=True)
+            metadata.update(kind="filing_index", start=lower, end=upper,
+                            index_parameters=parameters)
         elif route in ("/stocks/filings/8-K/vX/disclosures", "/stocks/filings/8-K/vX/text"):
-            lower = self._day(parameters.get("filing_date.gte"), "filing start")
-            upper = self._day(parameters.get("filing_date.lte"), "filing end")
+            source = route.endswith("text")
+            lower = self._day(parameters.get("filing_date.gte"), "filing start", source=source)
+            upper = self._day(parameters.get("filing_date.lte"), "filing end", source=source)
             if lower > upper:
                 raise ScopeViolation("Reversed filing dates.")
             if route.endswith("disclosures") and parameters.get("tertiary_category") not in {"acquisition_agreement", "merger_agreement"}:
@@ -124,7 +136,9 @@ class ISFence:
             metadata.update(kind="filings", start=lower, end=upper)
         elif route == "/v3/reference/options/contracts":
             as_of = self._day(parameters.get("as_of"), "contract as-of", feature=True)
-            if not isinstance(parameters.get("underlying_ticker"), str):
+            if (not isinstance(parameters.get("underlying_ticker"), str)
+                    or getattr(self, "window_role", "is") == "oos" and getattr(self, "universe", None) is not None
+                    and parameters["underlying_ticker"] not in self.universe):
                 raise ScopeViolation("An explicit underlying is required.")
             # Future expiration is historical contract metadata, not a future mark.
             metadata.update(kind="contract_metadata", start=as_of, end=as_of)
@@ -144,6 +158,12 @@ class ISFence:
     def _validate_rows(self, rows, scope):
         if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
             raise ScopeViolation("Transport must return a complete list of object records.")
+        if scope["kind"] == "filing_index":
+            from safe_transport import validate_index_rows
+            try:
+                return validate_index_rows(rows, scope["index_parameters"], window_role=getattr(self, "window_role", "is"))
+            except ValueError as exc:
+                raise ScopeViolation("Invalid returned 8-K index provenance.") from exc
         if scope["kind"] not in {"filings", "option_bars"}:
             return rows
         for row in rows:
@@ -212,6 +232,43 @@ def _definition_module(source):
     return ast.fix_missing_locations(ast.Module(body=kept, type_ignores=[]))
 
 
+class OOSFence(ISFence):
+    """Fixed contestant dates; source history and market features have different floors."""
+    def __init__(self, api_get, api_get_all):
+        self.start, self.end = pd.Timestamp("2026-01-01"), pd.Timestamp("2026-08-31")
+        self.feature_start, self.source_start = pd.Timestamp("2025-12-01"), pd.Timestamp("2024-01-01")
+        self.window_role = "oos"
+        self._get, self._get_all = api_get, api_get_all
+        self.requests, self.boundary_notes = [], []
+
+
+class SubmissionFence(ISFence):
+    """Bounded interface for an explicitly adopted submission variant only."""
+    def __init__(self, start, end, api_get, api_get_all, *, warmup_start):
+        self.start, self.end = pd.Timestamp(start), pd.Timestamp(end)
+        self.feature_start, self.source_start = pd.Timestamp(warmup_start), pd.Timestamp(start)
+        for value in (self.start, self.end, self.feature_start):
+            if pd.isna(value) or value.tzinfo is not None or value != value.normalize():
+                raise ScopeViolation("Submission dates must be exact calendar days.")
+        if not self.feature_start <= self.start <= self.end:
+            raise ScopeViolation("Reversed submission dates or warmup.")
+        self.window_role = "submission"
+        self._get, self._get_all = api_get, api_get_all
+        self.requests, self.boundary_notes = [], []
+
+    def _request(self, path, params):
+        route = unquote(urlparse(path).path)
+        if route not in {"/stocks/filings/8-K/vX/disclosures", "/v3/reference/options/contracts"} and not route.startswith("/v2/aggs/ticker/O:"):
+            raise ScopeViolation("Only disclosures, historical contracts and option bars are supported.")
+        metadata = super()._request(path, params)
+        if route == "/v3/reference/options/contracts" and getattr(self, "universe", None) is not None:
+            values = dict(params or {})
+            values.update({k:v[0] for k,v in parse_qs(urlparse(path).query).items()})
+            if values.get("underlying_ticker") not in self.universe:
+                raise ScopeViolation("Contract lookup expands the static universe.")
+        return metadata
+
+
 @dataclass
 class Runtime:
     namespace: dict
@@ -223,10 +280,17 @@ class Runtime:
 
 
 def load_runtime(notebook_source: Path | str, api_get: Callable, api_get_all: Callable,
-                 *, start="2024-01-01", end="2025-12-31", clock=None, warmup_start=None) -> Runtime:
+                 *, start="2024-01-01", end="2025-12-31", clock=None, warmup_start=None, window_role="is", submission_authorized=False) -> Runtime:
     path = Path(notebook_source)
     source = _source(path)
-    fence = ISFence(start, end, api_get, api_get_all, warmup_start=warmup_start)
+    if window_role == "is":
+        fence = ISFence(start, end, api_get, api_get_all, warmup_start=warmup_start)
+    elif window_role == "oos" and (start, end, warmup_start) == ("2026-01-01", "2026-08-31", "2025-12-01"):
+        fence = OOSFence(api_get, api_get_all)
+    elif window_role == "submission" and submission_authorized is True:
+        fence = SubmissionFence(start, end, api_get, api_get_all, warmup_start=warmup_start)
+    else:
+        raise ScopeViolation("Only explicit fixed IS or contestant OOS loading is supported.")
     clock = clock or NYSEClock.for_window(start, end)
     module_name = "_gqh_definitions_" + uuid.uuid4().hex
     module = types.ModuleType(module_name)
@@ -267,6 +331,8 @@ def load_runtime(notebook_source: Path | str, api_get: Callable, api_get_all: Ca
                      "next_public_open", "acceptance_regime"):
             namespace[name] = getattr(clock, name)
         namespace["trading_sessions"] = lambda first, last: clock.sessions[(clock.sessions >= pd.Timestamp(first)) & (clock.sessions <= pd.Timestamp(last))]
+        if window_role in {"oos", "submission"}:
+            fence.universe = frozenset(namespace["TOP_100"])
         original_bars, original_chain = namespace["option_bars"], namespace["fetch_chain"]
         def bars(ticker, first, last):
             lower, upper = max(pd.Timestamp(first), fence.feature_start), min(pd.Timestamp(last), fence.end)
@@ -310,34 +376,6 @@ def _raw_candidates(runtime):
     return raw
 
 
-def _normalize_events(events: pd.DataFrame, runtime) -> pd.DataFrame:
-    if not isinstance(events, pd.DataFrame):
-        raise ValueError("Event provider must return a DataFrame.")
-    if events.empty:
-        return pd.DataFrame(columns=EVENT_COLUMNS)
-    if not set(EVENT_COLUMNS) <= set(events):
-        raise ValueError("Event provider omitted required audited event columns.")
-    events = events.copy()
-    for column in ("filing_date", "accepted_at", "t_pre", "t_0", "entry_day", "event_date"):
-        events[column] = pd.to_datetime(events[column])
-        if getattr(events[column].dt, "tz", None) is not None:
-            events[column] = events[column].dt.tz_convert("America/New_York").dt.tz_localize(None)
-    if not events.accession_number.is_unique or not events.transaction_group.is_unique:
-        raise ValueError("Event accession/transaction identities must be deduplicated before prices.")
-    if not set(events.ticker) <= set(runtime.namespace["TOP_100"]):
-        raise ValueError("Event provider expanded the frozen universe.")
-    if not events.filing_date.between(runtime.fence.start, runtime.fence.end).all():
-        raise ScopeViolation("Event provider returned a filing outside the IS fence.")
-    if not events.accepted_at.dt.normalize().between(runtime.fence.start, runtime.fence.end).all():
-        raise ScopeViolation("Event provider returned acceptance information outside the IS fence.")
-    for row in events.itertuples(index=False):
-        expected = (runtime.clock.pre_public_session(row.accepted_at), runtime.clock.public_signal_session(row.accepted_at),
-                    runtime.clock.first_full_session_close(row.accepted_at))
-        if (row.t_pre, row.t_0, row.entry_day) != expected:
-            raise ValueError("Event public clock does not match the validated NYSE calendar.")
-    return events.sort_values(["accepted_at", "accession_number"]).reset_index(drop=True)
-
-
 @dataclass
 class RunResult:
     tables: dict
@@ -361,105 +399,9 @@ class RunResult:
             row["legs"] = {key: {"ticker": leg.ticker, "kind": leg.kind, "strike": leg.strike, "bars": frame(leg.bars)}
                            for key, leg in event.legs.items()}
             contracts.append(row)
-        return {"kind": "private_clean_process_IS_snapshot_contains_licensed_inputs",
+        oos = self.manifest.get("oos_access") is True
+        return {"kind": "private_clean_process_" + ("OOS" if oos else "IS") + "_snapshot_contains_licensed_inputs",
                 "tables": {key: frame(value) for key, value in self.tables.items()}, "portfolio": portfolio,
-                "priced_primary": contracts, "oos_read": False, "runtime_manifest": self.manifest}
+                "priced_primary": contracts, "oos_read": oos, "runtime_manifest": self.manifest}
 
 
-def run_is(runtime: Runtime, *, event_mode="approved_is_v1", corrected_rows=None,
-           event_provider: Callable | None = None, candidate_events: pd.DataFrame | None = None) -> RunResult:
-    """Run explicitly, after caller authorization, with the unchanged primary design.
-
-    corrected_rows are four-tuples (ticker,target,accession,accepted_at), supplied
-    from a separate price-blind adjudication manifest. General-auto provider is
-    a callback accepting keyword tags,start,end,universe,raw,calendar,api_get_all;
-    it must preserve evidence/decisions in DataFrame.attrs for the caller audit.
-    This entry point is IS-only regardless of any provider's other capabilities.
-    """
-    ns = runtime.namespace
-    if event_mode not in {"approved_is_v1", "corrected_is_v2", "general_auto_is"}:
-        raise ValueError("Unknown IS event mode.")
-    raw = _raw_candidates(runtime) if candidate_events is None else candidate_events.copy()
-    if not set(RAW_COLUMNS[-3:]) <= set(raw):
-        raise ValueError("Supplied candidate table lacks normalized source/accession/ticker fields.")
-    if len(raw):
-        raw["filing_date"] = pd.to_datetime(raw["filing_date"])
-        if getattr(raw.filing_date.dt, "tz", None) is not None or not raw.filing_date.between(runtime.fence.start, runtime.fence.end).all():
-            raise ScopeViolation("Candidate table contains records outside the declared IS interval.")
-    original_approved = ns["APPROVED_IS"]
-    if event_mode == "general_auto_is":
-        if event_provider is None:
-            raise ValueError("General-auto IS requires an explicit audited event provider.")
-        events = event_provider(tags=ns["EVENT_TAGS"], start=ns["STUDY_START"], end=ns["STUDY_END"],
-                                universe=ns["TOP_100"], raw=raw, calendar=runtime.clock, api_get_all=runtime.fence.get_all)
-    else:
-        chosen = original_approved if event_mode == "approved_is_v1" else corrected_rows
-        if chosen is None:
-            raise ValueError("Corrected mode requires a separately approved, explicit event manifest.")
-        chosen = list(chosen)
-        if any(not isinstance(row, (tuple, list)) or len(row) != 4 for row in chosen):
-            raise ValueError("Reviewed rows must be four-tuples of ticker, target, accession, acceptance.")
-        chosen = [row for row in chosen if runtime.fence.start <= pd.Timestamp(row[3]).normalize() <= runtime.fence.end]
-        ns["APPROVED_IS"] = chosen
-        try:
-            events = ns["build_events"](ns["EVENT_TAGS"], ns["STUDY_START"], ns["STUDY_END"], ns["TOP_100"], raw=raw) if chosen else pd.DataFrame(columns=EVENT_COLUMNS)
-        finally:
-            ns["APPROVED_IS"] = original_approved
-    event_audit_attrs = dict(events.attrs)
-    events = _normalize_events(events, runtime)
-    priced, dropped = ns["price_events"](events, label=event_mode, observation_end=runtime.fence.end)
-    def evaluate(prices, haircut):
-        output = ns["evaluate"](prices, haircut=haircut)
-        if len(output):
-            outside = ~pd.to_datetime(output.entry_date).between(runtime.fence.start, runtime.fence.end)
-            if outside.any():
-                # Warmup can select contracts; it must not create pre-IS outcomes.
-                outcome_columns = [c for c in output if c.endswith(("_gross", "_cost", "_net"))
-                                   or c in {"S_entry", "S_exit", "realized", "ratio", "implied_scaled"}]
-                output.loc[outside, outcome_columns] = np.nan
-                output.loc[outside, "coverage_reason"] = "ENTRY_OUTSIDE_IS_OBSERVATION_WINDOW_FEATURE_WARMUP_ONLY"
-        return output.reindex(columns=list(dict.fromkeys(RESULT_COLUMNS + list(output.columns))))
-    results = evaluate(priced, ns["COST_HAIRCUT"])
-    placebo_events = ns["sample_placebo"](events, raw, ns["N_PLACEBO"], ns["STUDY_START"], ns["STUDY_END"]) if len(events) else pd.DataFrame(columns=PLACEBO_COLUMNS)
-    placebo_priced, placebo_dropped = ns["price_events"](placebo_events, label="ordinary dates", observation_end=runtime.fence.end)
-    placebo_results = evaluate(placebo_priced, ns["COST_HAIRCUT"])
-    official = ns["difference_board"](results, placebo_results, strategies=["covered_call_net"])
-    theta = ns["difference_board"](results, placebo_results, strategies=["incremental_net"])
-    grid = []
-    for category in ("union",) + ns["EVENT_TAGS"]:
-        a, b = ns["category_slice"](results, category), ns["category_slice"](placebo_results, category)
-        for bucket in ns["EXPIRY_BUCKETS"]:
-            for entry in ("post", "next_open", "full", "pre"):
-                for otm in ns["OTM_GRID"]:
-                    board = ns["difference_board"](a, b, bucket=bucket, entry=entry, otm=otm, strategies=["incremental_net"])
-                    for row in board.itertuples(index=False):
-                        grid.append({"category": category, "bucket": bucket, "entry": entry, "otm": otm,
-                                     "horizon": row.horizon, "n_event": row.n_a, "n_ordinary": row.n_b,
-                                     "theta": row.difference, "ci_lo": row.ci_lo, "ci_hi": row.ci_hi,
-                                     "timing_status": "DIAGNOSTIC_NOT_TRADEABLE" if entry == "pre" else "COVERAGE_AND_CLOCK_GUARDS_REQUIRED"})
-    portfolio = ns["simulate_portfolio"](priced, ns["STUDY_START"], ns["STUDY_END"], ns["SECTOR_BY_TICKER"],
-                    initial_nav=ns["INITIAL_NAV"], primary_horizon=ns["PRIMARY_HORIZON"], otm=ns["OTM_PCT"], haircut=ns["COST_HAIRCUT"])
-    if portfolio["ledger"].empty:
-        portfolio["ledger"] = pd.DataFrame(columns=["trade_id", "ticker", "accession_number", "contracts", "status", "reason",
-                                                    "entry_date", "scheduled_exit", "actual_exit", "entry_cash_debit", "exit_cash_credit"])
-    tables = {"events": events, "candidate_events": raw, "results": results, "placebo_events": placebo_events,
-              "placebo_results": placebo_results, "sensitivity": pd.DataFrame(grid), "theta_board": theta,
-              "official_diff": official, "dropped": dropped, "placebo_dropped": placebo_dropped,
-              "event_stress": evaluate(priced, 2 * ns["COST_HAIRCUT"]),
-              "ordinary_stress": evaluate(placebo_priced, 2 * ns["COST_HAIRCUT"])}
-    manifest = {"event_mode": event_mode, "window": [ns["STUDY_START"], ns["STUDY_END"]],
-                "feature_warmup_start": str(runtime.fence.feature_start.date()),
-                "warmup_scope": "Option bars and historical contract metadata only; no additional events or pre-IS outcomes",
-                "source_name": runtime.source_name, "source_sha256": runtime.source_sha256,
-                "calendar_matches_original_full_is": runtime.calendar_matches_original_is,
-                "credential_code_loaded": False, "notebook_cells_executed": False, "oos_access": False,
-                "sealed_access": False, "boundary_notes": runtime.fence.boundary_notes.copy(),
-                "transport_requests": runtime.fence.requests.copy(), "event_audit_attrs": event_audit_attrs,
-                "primary_rule_changed": False, "original_approved_manifest_restored": ns["APPROVED_IS"] == original_approved,
-                "portfolio_open_at_window_end": int((portfolio["ledger"].status == "OPEN_AT_WINDOW_END").sum()),
-                "note": "Results must be compared with the archived first-IS snapshot before claiming exact reproduction. Corrected/auto labels are distinct post-IS operational modes, never replacements of the archived result."}
-    return RunResult(tables, portfolio, priced, placebo_priced, manifest)
-
-
-def run_oos(*args, **kwargs):
-    raise ScopeViolation("OOS remains blocked here. An external frozen/readiness-verified one-time evaluation implementation is required; a flag alone cannot enable it.")
