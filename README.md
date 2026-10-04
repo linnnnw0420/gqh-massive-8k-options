@@ -1,9 +1,9 @@
 # GQH 2026 — M&A-tagged filings and covered calls
 
 One submission for the Systematic Trading main track and Massive subtrack.
-**Current status:** V4 IS completed; 23 offline tests passed. Primary incremental event-minus-ordinary estimate +0.87 percentage points, exploratory 95% interval [-0.37, 2.17]; inconclusive. The capital ledger has 130/502 NAV gaps, so full-path performance metrics are unavailable. OOS is ready for explicit one-shot approval and has not run.
+**Current status:** IS and the single contestant OOS both completed with identical computational source; 23 offline tests passed. Primary event-minus-ordinary incremental estimate: IS +0.87 percentage points (exploratory 95% CI [-0.37, 2.17]); OOS +3.38 pp ([1.18, 5.85]). OOS event covered calls themselves average -3.38%, so a positive increment contrast does not establish profitability or option mispricing. Capital NAV gaps are 130/502 IS and 6/166 OOS sessions, including unavailable terminal marks; full-period capital return/risk metrics remain unavailable. No parameters were changed after OOS.
 
-Open **submission.ipynb**. The English note is **quant_note.pdf** (a draft until the single contestant OOS is evaluated).
+Open **submission.ipynb**. The English submission note is **quant_note.pdf**, with IS and the sole completed contestant OOS reported separately. Editable source: **quant_note.tex**.
 
 ## Setup and reproduce
 
@@ -23,13 +23,13 @@ Run the accepted version on IS:
 .venv/bin/python run_research.py --mode submission --execute   --accept-operational-revision --start 2024-01-01 --end 2025-12-31
 ```
 
-After reviewing this exact implementation and explicitly approving the single OOS run:
+The owner already executed the following one-shot contestant OOS command. It is recorded for provenance; the journal blocks a second entrant evaluation:
 
 ```bash
 .venv/bin/python run_research.py --mode submission --execute   --accept-operational-revision --approve-oos-once   --start 2026-01-01 --end 2026-08-31
 ```
 
-The notebook exposes the same commands. Run switches default to False. The runner preserves immutable local results under `.massive_cache/submission_v4/`, requires the OOS source to match completed IS, and records the OOS outcome attempt before requesting option data. Existing attempts are never overwritten. Importing modules or Run All with unchanged switches does not execute either study.
+The notebook exposes the same commands. Run switches default to False. The runner preserves immutable local results under `.massive_cache/submission_v4/`, requires the OOS source to match completed IS, and records the OOS outcome attempt before requesting option data. Existing attempts are never overwritten. Importing modules or Run All with unchanged switches does not execute either study. The global OOS journal is COMPLETE and must be preserved; do not rerun or retune.
 
 For judges' supplied unseen dates, from a clean kernel:
 
@@ -69,7 +69,8 @@ The conjecture is an event-specific option premium, not a prediction that every 
 | `tests/` | Offline synthetic checks of timing, boundaries, missingness and execution |
 | `HYPOTHESIS.md` | Original pre-results hypothesis, unchanged |
 | `RULES.md`, `RESEARCH_LOG.md` | Official rules and honest version provenance |
-| `quant_note.tex`, `quant_note.pdf` | English submission note source and PDF |
+| `quant_note.tex`, `quant_note.pdf` | English submission note source and PDF, including completed OOS |
+| `results/` | Derived IS/OOS aggregate tables, metrics and gappy NAV curves |
 
 Historical notebooks, reports and inactive audit scripts are recoverably archived under ignored `.massive_cache/implementation_archive/clean_delivery_20261004/` and retained in Git history. They are not additional submission entry points. Raw data, private snapshots, `.env`, `.venv` and Git history were preserved.
 
